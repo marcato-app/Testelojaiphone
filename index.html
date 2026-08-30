@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>iStore Premium — iPhones Novos e Seminovos</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+  :root {
+    --text-primary: #1a1a1a; --text-secondary: #555; --text-tertiary: #888; --text-quaternary: #bbb;
+    --surface: #fff; --surface-muted: #f5f5f5; --surface-raised: #fafafa; --border: #e5e5e5;
+    --positive: #22c55e; --danger: #ef4444; --warning: #f59e0b; --accent: #3b82f6;
+    --font-sans: 'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    --ease-out: cubic-bezier(0.16,1,0.3,1); --t-fast: 150ms; --t-normal: 250ms; --t-slow: 400ms;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --text-primary: #f0f0f0; --text-secondary: #aaa; --text-tertiary: #777; --text-quaternary: #555;
+      --surface: #0a0a0a; --surface-muted: #1a1a1a; --surface-raised: #141414; --border: #2a2a2a;
+      --positive: #4ade80; --danger: #f87171; --warning: #fbbf24; --accent: #60a5fa;
+    }
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: var(--font-sans); color: var(--text-primary); background: var(--surface); line-height: 1.5; overflow-x: hidden; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+  @keyframes slideRight { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+  @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+  @keyframes shimmer { 0% { background-position: -200% 0; } 100% { background-position: 200% 0; } }
+  .anim-fade-up { animation: fadeUp 0.7s var(--ease-out) forwards; opacity: 0; }
+  .anim-fade-in { animation: fadeIn 0.6s var(--ease-out) forwards; opacity: 0; }
+  .anim-slide-right { animation: slideRight 0.6s var(--ease-out) forwards; opacity: 0; }
+  .delay-1 { animation-delay: 0.1s; } .delay-2 { animation-delay: 0.2s; } .delay-3 { animation-delay: 0.3s; }
+  .delay-4 { animation-delay: 0.4s; } .delay-5 { animation-delay: 0.5s; } .delay-6 { animation-delay: 0.6s; }
+  .btn-primary { background: var(--text-primary); color: var(--surface); border: none; padding: 12px 28px; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; transition: all var(--t-fast) var(--ease-out); display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+  .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+  .btn-secondary { background: transparent; color: var(--text-primary); border: 1px solid var(--border); padding: 12px 28px; border-radius: 10px; font-size: 15px; font-weight: 500; cursor: pointer; transition: all var(--t-fast) var(--ease-out); display: inline-flex; align-items: center; gap: 8px; text-decoration: none; }
+  .btn-secondary:hover { background: var(--surface-muted); }
+  .phone-card { background: var(--surface-raised); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: all var(--t-normal) var(--ease-out); cursor: pointer; position: relative; overflow: hidden; }
+  .phone-card:hover { transform: translateY(-6px); border-color: var(--text-secondary); box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+  .phone-card .card-actions { opacity: 0; transition: opacity var(--t-fast) var(--ease-out); }
+  .phone-card:hover .card-actions { opacity: 1; }
+  .feature-item { display: flex; align-items: flex-start; gap: 16px; padding: 20px; border-radius: 10px; transition: background var(--t-fast) var(--ease-out); }
+  .feature-item:hover { background: var(--surface-muted); }
+  .nav-link { color: var(--text-secondary); text-decoration: none; font-size: 14px; font-weight: 500; transition: color var(--t-fast) var(--ease-out); cursor: pointer; }
+  .nav-link:hover { color: var(--text-primary); }
+  .tag { display: inline-flex; align-items: center; gap: 4px; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 500; }
+  .tag-new { background: rgba(34,197,94,0.12); color: var(--positive); }
+  .tag-sale { background: rgba(239,68,68,0.12); color: var(--danger); }
+  .tag-stock { background: rgba(136,136,136,0.12); color: var(--text-tertiary); }
+  .price { font-size: 22px; font-weight: 600; font-variant-numeric: tabular-nums; }
+  .price-old { font-size: 14px; color: var(--text-tertiary); text-decoration: line-through; margin-left: 8px; font-variant-numeric: tabular-nums; }
+  .scroll-reveal { opacity: 0; transform: translateY(24px); transition: all 0.6s var(--ease-out); }
+  .scroll-reveal.revealed { opacity: 1; transform: translateY(0); }
+  .testimonial-card { background: var(--surface-raised); border: 1px solid var(--border); border-radius: 12px; padding: 24px; transition: all var(--t-normal) var(--ease-out); }
+  .testimonial-card:hover { border-color: var(--text-quaternary); }
+  .star { color: var(--warning); }
+  input[type="text"] { font: inherit; border: 1px solid var(--border); border-radius: 10px; padding: 10px 14px 10px 36px; font-size: 14px; background: var(--surface); color: var(--text-primary); outline: none; transition: border-color var(--t-fast) var(--ease-out); width: 180px; }
+  input[type="text"]:focus { border-color: var(--text-primary); }
+  input[type="text"]::placeholder { color: var(--text-quaternary); }
+  .phone-visual { width: 80px; height: 140px; border: 2px solid var(--text-primary); border-radius: 14px; position: relative; margin: 0 auto 16px; background: var(--surface); display: flex; align-items: center; justify-content: center; transition: transform var(--t-normal) var(--ease-out); }
+  .phone-card:hover .phone-visual { transform: scale(1.05) rotate(-2deg); }
+  .phone-visual::before { content: ''; position: absolute; top: 6px; left: 50%; transform: translateX(-50%); width: 24px; height: 4px; background: var(--text-primary); border-radius: 2px; }
+  .phone-visual::after { content: ''; position: absolute; bottom: 6px; left: 50%; transform: translateX(-50%); width: 20px; height: 20px; border: 1.5px solid var(--text-primary); border-radius: 50%; }
+  .phone-screen { width: 68px; height: 100px; background: var(--surface-muted); border-radius: 8px; display: flex; align-items: center; justify-content: center; }
+  .hero-phone { width: 140px; height: 260px; border: 3px solid var(--text-primary); border-radius: 22px; position: relative; background: var(--surface); display: flex; align-items: center; justify-content: center; animation: float 4s ease-in-out infinite; }
+  .hero-phone::before { content: ''; position: absolute; top: 10px; left: 50%; transform: translateX(-50%); width: 40px; height: 5px; background: var(--text-primary); border-radius: 3px; }
+  .hero-phone::after { content: ''; position: absolute; bottom: 10px; left: 50%; transform: translateX(-50%); width: 28px; height: 28px; border: 2px solid var(--text-primary); border-radius: 50%; }
+  .hero-screen { width: 120px; height: 190px; background: var(--surface-muted); border-radius: 14px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 8px; }
+  .shimmer-text { background: linear-gradient(90deg, var(--text-primary) 0%, var(--text-tertiary) 50%, var(--text-primary) 100%); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; animation: shimmer 3s linear infinite; }
+  .section-title { font-size: 28px; font-weight: 600; line-height: 1.2; margin-bottom: 8px; }
+  .section-subtitle { font-size: 16px; color: var(--text-secondary); line-height: 1.5; margin-bottom: 32px; }
+  .avatar { width: 40px; height: 40px; border-radius: 50%; background: var(--surface-muted); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; color: var(--text-secondary); }
+  footer { border-top: 1px solid var(--border); padding: 48px 0; text-align: center; }
+  .social-links { display: flex; justify-content: center; gap: 16px; margin-top: 20px; }
+  .social-links a { width: 40px; height: 40px; border-radius: 10px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; color: var(--text-secondary); transition: all var(--t-fast) var(--ease-out); text-decoration: none; }
+  .social-links a:hover { background: var(--surface-muted); color: var(--text-primary); border-color: var(--text-secondary); }
+  @media (max-width: 640px) {
+    .hero-grid { flex-direction: column; text-align: center; } .hero-phone { margin: 0 auto; } .nav-links { display: none; }
+    .products-grid { grid-template-columns: 1fr !important; } .features-grid { grid-template-columns: 1fr !important; }
+    .testimonials-grid { grid-template-columns: 1fr !important; } .section-title { font-size: 24px; } h1 { font-size: 32px !important; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- HEADER -->
+<header style="display: flex; align-items: center; justify-content: space-between; padding: 16px 0; border-bottom: 1px solid var(--border); margin-bottom: 48px;" class="anim-fade-in">
+  <div style="display: flex; align-items: center; gap: 10px; font-size: 20px; font-weight: 600;">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-primary);">
+      <path d="M14 16.1006C14.497 16.1006 14.9003 16.503 14.9004 17C14.9004 17.497 14.497 17.9004 14 17.9004H10C9.50294 17.9004 9.09961 17.4971 9.09961 17C9.09966 16.503 9.50298 16.1006 10 16.1006H14Z" fill="currentColor"/>
+      <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2.09961C18.1539 2.09961 19.9004 3.84609 19.9004 6V18C19.9004 20.1539 18.1539 21.9004 16 21.9004H8C5.84609 21.9004 4.09961 20.1539 4.09961 18V6C4.09961 3.84609 5.84609 2.09961 8 2.09961H16ZM8 3.90039C6.8402 3.90039 5.90039 4.8402 5.90039 6V18C5.90039 19.1598 6.8402 20.0996 8 20.0996H16C17.1598 20.0996 18.0996 19.1598 18.0996 18V6C18.0996 4.8402 17.1598 3.90039 16 3.90039H8Z" fill="currentColor"/>
+    </svg>
+    iStore Premium
+  </div>
+  <nav class="nav-links" style="display: flex; gap: 24px; align-items: center;">
+    <a class="nav-link" href="#produtos">Produtos</a>
+    <a class="nav-link" href="#beneficios">Beneficios</a>
+    <a class="nav-link" href="#depoimentos">Depoimentos</a>
+    <a class="nav-link" href="#contato">Contato</a>
+  </nav>
+  <div style="display: flex; align-items: center; gap: 12px;">
+    <div style="position: relative;">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-quaternary);">
+        <path d="M11.5 3C16.1944 3 20 6.80558 20 11.5C20 13.523 19.2933 15.381 18.1132 16.8404L21.1364 19.8636C21.4879 20.2151 21.4879 20.7849 21.1364 21.1364C20.7849 21.4879 20.2151 21.4879 19.8636 21.1364L16.8404 18.1132C15.381 19.2933 13.523 20 11.5 20C6.80558 20 3 16.1944 3 11.5C3 6.80558 6.80558 3 11.5 3ZM11.5 18.2C15.2003 18.2 18.2 15.2003 18.2 11.5C18.2 7.79969 15.2003 4.8 11.5 4.8C7.79969 4.8 4.8 7.79969 4.8 11.5C4.8 15.2003 7.79969 18.2 11.5 18.2Z" fill="currentColor"/>
+      </svg>
+      <input type="text" placeholder="Buscar iPhone...">
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero-grid" style="display: flex; align-items: center; gap: 48px; margin-bottom: 80px; padding: 32px 0;">
+  <div style="flex: 1;">
+    <div class="anim-slide-right delay-1" style="display: inline-flex; align-items: center; gap: 6px; padding: 6px 14px; border-radius: 20px; border: 1px solid var(--border); font-size: 13px; color: var(--text-secondary); margin-bottom: 20px; font-weight: 500;">
+      <span style="width: 6px; height: 6px; background: var(--positive); border-radius: 50%; display: inline-block;"></span>
+      Novo iPhone 16 Pro em estoque
+    </div>
+    <h1 class="anim-fade-up delay-2" style="font-size: 42px; font-weight: 600; line-height: 1.1; margin-bottom: 16px; letter-spacing: -0.02em;">
+      O iPhone dos seus<br><span class="shimmer-text">sonhos</span>, aqui.
+    </h1>
+    <p class="anim-fade-up delay-3" style="font-size: 17px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 32px; max-width: 440px;">
+      Os modelos mais recentes com garantia oficial, entrega rapida e o melhor preco do mercado. iPhones novos, seminovos e acessorios.
+    </p>
+    <div class="anim-fade-up delay-4" style="display: flex; gap: 12px; flex-wrap: wrap;">
+      <a href="#produtos" class="btn-primary">
+        Ver catalogo
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M21.4387 12.814C21.788 12.4622 21.787 11.8941 21.4364 11.5436L15.8979 6.0051C15.5464 5.65363 14.9766 5.65363 14.6251 6.0051C14.2737 6.35657 14.2737 6.92642 14.6251 7.27789L18.6272 11.28H2.79998C2.30293 11.28 1.89998 11.6829 1.89998 12.18C1.89998 12.677 2.30293 13.08 2.79998 13.08H18.6382L14.6228 17.1245C14.2726 17.4772 14.2747 18.0471 14.6274 18.3973C14.9802 18.7475 15.55 18.7454 15.9002 18.3927L21.4387 12.814Z" fill="currentColor"/>
+        </svg>
+      </a>
+      <a href="#contato" class="btn-secondary">Falar com vendedor</a>
+    </div>
+    <div class="anim-fade-up delay-5" style="display: flex; gap: 24px; margin-top: 32px; flex-wrap: wrap;">
+      <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-tertiary);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.3027 5.9053C19.6542 5.55397 20.2247 5.55388 20.5761 5.9053C20.9273 6.25675 20.9273 6.82734 20.5761 7.17874L9.65911 18.0948C9.30773 18.4461 8.73814 18.446 8.38665 18.0948L3.42376 13.1328C3.0726 12.7814 3.07263 12.2118 3.42376 11.8604C3.77524 11.509 4.34575 11.5089 4.6972 11.8604L9.02239 16.1856L19.3027 5.9053Z" fill="currentColor"/></svg>
+        Garantia 1 ano
+      </div>
+      <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-tertiary);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.3027 5.9053C19.6542 5.55397 20.2247 5.55388 20.5761 5.9053C20.9273 6.25675 20.9273 6.82734 20.5761 7.17874L9.65911 18.0948C9.30773 18.4461 8.73814 18.446 8.38665 18.0948L3.42376 13.1328C3.0726 12.7814 3.07263 12.2118 3.42376 11.8604C3.77524 11.509 4.34575 11.5089 4.6972 11.8604L9.02239 16.1856L19.3027 5.9053Z" fill="currentColor"/></svg>
+        12x sem juros
+      </div>
+      <div style="display: flex; align-items: center; gap: 6px; font-size: 13px; color: var(--text-tertiary);">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M19.3027 5.9053C19.6542 5.55397 20.2247 5.55388 20.5761 5.9053C20.9273 6.25675 20.9273 6.82734 20.5761 7.17874L9.65911 18.0948C9.30773 18.4461 8.73814 18.446 8.38665 18.0948L3.42376 13.1328C3.0726 12.7814 3.07263 12.2118 3.42376 11.8604C3.77524 11.509 4.34575 11.5089 4.6972 11.8604L9.02239 16.1856L19.3027 5.9053Z" fill="currentColor"/></svg>
+        Entrega em 24h
+      </div>
+    </div>
+  </div>
+  <div class="anim-fade-up delay-3" style="flex: 0 0 auto; display: flex; justify-content: center;">
+    <div class="hero-phone">
+      <div class="hero-screen">
+        <svg width="40" height="40" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-primary);">
+          <path d="M14 16.1006C14.497 16.1006 14.9003 16.503 14.9004 17C14.9004 17.497 14.497 17.9004 14 17.9004H10C9.50294 17.9004 9.09961 17.4971 9.09961 17C9.09966 16.503 9.50298 16.1006 10 16.1006H14Z" fill="currentColor"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2.09961C18.1539 2.09961 19.9004 3.84609 19.9004 6V18C19.9004 20.1539 18.1539 21.9004 16 21.9004H8C5.84609 21.9004 4.09961 20.1539 4.09961 18V6C4.09961 3.84609 5.84609 2.09961 8 2.09961H16ZM8 3.90039C6.8402 3.90039 5.90039 4.8402 5.90039 6V18C5.90039 19.1598 6.8402 20.0996 8 20.0996H16C17.1598 20.0996 18.0996 19.1598 18.0996 18V6C18.0996 4.8402 17.1598 3.90039 16 3.90039H8Z" fill="currentColor"/>
+        </svg>
+        <span style="font-size: 11px; font-weight: 500; color: var(--text-secondary);">iPhone 16 Pro</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PRODUTOS -->
+<section id="produtos" style="margin-bottom: 80px;">
+  <div class="scroll-reveal">
+    <h2 class="section-title">iPhones em destaque</h2>
+    <p class="section-subtitle">Os modelos mais vendidos com preco especial. Todos com garantia e nota fiscal.</p>
+  </div>
+  <div class="products-grid scroll-reveal" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px;">
+
+    <div class="phone-card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+        <span class="tag tag-new">Novo</span>
+        <div class="card-actions">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-tertiary); cursor: pointer;" onmouseover="this.style.color='var(--danger)'" onmouseout="this.style.color='var(--text-tertiary)'">
+            <path d="M11.8008 2.20386C11.8418 2.20504 11.8761 2.20679 11.9004 2.20679C12.9196 2.20697 14.0714 2.95768 14.6924 4.17847C15.3083 5.25838 15.3183 6.6302 15.0029 8.06226H18.0244C20.3536 8.06238 22.3556 10.0885 21.6377 12.4167L19.7588 18.5105C19.286 20.0439 17.7636 21.0064 16.1455 21.0066H8.86621C7.29432 21.0066 6.01953 19.7318 6.01953 18.1599V9.61792C6.01953 8.75706 6.59143 8.12094 7.18652 7.81421C7.74138 7.52813 8.27631 7.03526 8.55762 6.28882C8.7423 5.79875 8.81718 5.36749 8.89551 4.91284C8.90613 4.85121 8.91669 4.78901 8.92773 4.72632C9.01218 4.24725 9.13189 3.60409 9.57715 3.073C9.98574 2.58579 10.4533 2.34616 10.9248 2.25269C11.2492 2.18839 11.6072 2.19827 11.8008 2.20386ZM3.90039 8.70679C4.39721 8.707 4.79972 9.10935 4.7998 9.6062V19.6062C4.7998 20.1031 4.39727 20.5064 3.90039 20.5066C3.40333 20.5066 3 20.1033 3 19.6062V9.6062C3.00009 9.10922 3.40339 8.70679 3.90039 8.70679ZM11.5127 3.99976C11.4072 4.00007 11.3335 4.0066 11.2744 4.01831C11.1904 4.03501 11.0911 4.0682 10.9561 4.22925C10.8577 4.34667 10.79 4.52909 10.7002 5.03882C10.6906 5.093 10.6811 5.15005 10.6709 5.20972C10.5941 5.66065 10.4914 6.26229 10.2422 6.92358C9.77757 8.15644 8.89074 8.9602 8.01074 9.41382C7.93454 9.45309 7.88026 9.5043 7.84961 9.54761C7.82127 9.58767 7.81934 9.6106 7.81934 9.61792V18.1599C7.81934 18.7377 8.28844 19.2068 8.86621 19.2068H16.1455C17.1015 19.2066 17.8346 18.6435 18.0391 17.9802L19.918 11.8865C20.1905 11.0025 19.4593 9.86217 18.0244 9.86206H13.8223C13.5343 9.86197 13.264 9.72391 13.0947 9.49097C12.9254 9.25776 12.8776 8.95738 12.9668 8.68335C13.5367 6.93328 13.5148 5.73387 13.1221 5.05835C13.1126 5.04208 13.1031 5.02537 13.0947 5.00854C12.7129 4.24514 12.1035 4.00689 11.9004 4.00659C11.8294 4.00659 11.7579 4.00414 11.6982 4.00269H11.6865C11.6208 4.00109 11.5658 3.9996 11.5127 3.99976Z" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+      <div class="phone-visual">
+        <div class="phone-screen">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-primary);">
+            <path d="M14 16.1006C14.497 16.1006 14.9003 16.503 14.9004 17C14.9004 17.497 14.497 17.9004 14 17.9004H10C9.50294 17.9004 9.09961 17.4971 9.09961 17C9.09966 16.503 9.50298 16.1006 10 16.1006H14Z" fill="currentColor"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2.09961C18.1539 2.09961 19.9004 3.84609 19.9004 6V18C19.9004 20.1539 18.1539 21.9004 16 21.9004H8C5.84609 21.9004 4.09961 20.1539 4.09961 18V6C4.09961 3.84609 5.84609 2.09961 8 2.09961H16ZM8 3.90039C6.8402 3.90039 5.90039 4.8402 5.90039 6V18C5.90039 19.1598 6.8402 20.0996 8 20.0996H16C17.1598 20.0996 18.0996 19.1598 18.0996 18V6C18.0996 4.8402 17.1598 3.90039 16 3.90039H8Z" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+      <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">iPhone 16 Pro Max</h3>
+      <p style="font-size: 13px; color: var(--text-tertiary); margin-bottom: 12px;">256GB · Titanio natural</p>
+      <div style="display: flex; align-items: baseline;">
+        <span class="price">R$ 8.999</span>
+        <span class="price-old">R$ 10.499</span>
+      </div>
+    </div>
+
+    <div class="phone-card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+        <span class="tag tag-new">Novo</span>
+        <div class="card-actions">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-tertiary); cursor: pointer;" onmouseover="this.style.color='var(--danger)'" onmouseout="this.style.color='var(--text-tertiary)'">
+            <path d="M11.8008 2.20386C11.8418 2.20504 11.8761 2.20679 11.9004 2.20679C12.9196 2.20697 14.0714 2.95768 14.6924 4.17847C15.3083 5.25838 15.3183 6.6302 15.0029 8.06226H18.0244C20.3536 8.06238 22.3556 10.0885 21.6377 12.4167L19.7588 18.5105C19.286 20.0439 17.7636 21.0064 16.1455 21.0066H8.86621C7.29432 21.0066 6.01953 19.7318 6.01953 18.1599V9.61792C6.01953 8.75706 6.59143 8.12094 7.18652 7.81421C7.74138 7.52813 8.27631 7.03526 8.55762 6.28882C8.7423 5.79875 8.81718 5.36749 8.89551 4.91284C8.90613 4.85121 8.91669 4.78901 8.92773 4.72632C9.01218 4.24725 9.13189 3.60409 9.57715 3.073C9.98574 2.58579 10.4533 2.34616 10.9248 2.25269C11.2492 2.18839 11.6072 2.19827 11.8008 2.20386ZM3.90039 8.70679C4.39721 8.707 4.79972 9.10935 4.7998 9.6062V19.6062C4.7998 20.1031 4.39727 20.5064 3.90039 20.5066C3.40333 20.5066 3 20.1033 3 19.6062V9.6062C3.00009 9.10922 3.40339 8.70679 3.90039 8.70679ZM11.5127 3.99976C11.4072 4.00007 11.3335 4.0066 11.2744 4.01831C11.1904 4.03501 11.0911 4.0682 10.9561 4.22925C10.8577 4.34667 10.79 4.52909 10.7002 5.03882C10.6906 5.093 10.6811 5.15005 10.6709 5.20972C10.5941 5.66065 10.4914 6.26229 10.2422 6.92358C9.77757 8.15644 8.89074 8.9602 8.01074 9.41382C7.93454 9.45309 7.88026 9.5043 7.84961 9.54761C7.82127 9.58767 7.81934 9.6106 7.81934 9.61792V18.1599C7.81934 18.7377 8.28844 19.2068 8.86621 19.2068H16.1455C17.1015 19.2066 17.8346 18.6435 18.0391 17.9802L19.918 11.8865C20.1905 11.0025 19.4593 9.86217 18.0244 9.86206H13.8223C13.5343 9.86197 13.264 9.72391 13.0947 9.49097C12.9254 9.25776 12.8776 8.95738 12.9668 8.68335C13.5367 6.93328 13.5148 5.73387 13.1221 5.05835C13.1126 5.04208 13.1031 5.02537 13.0947 5.00854C12.7129 4.24514 12.1035 4.00689 11.9004 4.00659C11.8294 4.00659 11.7579 4.00414 11.6982 4.00269H11.6865C11.6208 4.00109 11.5658 3.9996 11.5127 3.99976Z" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+      <div class="phone-visual">
+        <div class="phone-screen">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-primary);">
+            <path d="M14 16.1006C14.497 16.1006 14.9003 16.503 14.9004 17C14.9004 17.497 14.497 17.9004 14 17.9004H10C9.50294 17.9004 9.09961 17.4971 9.09961 17C9.09966 16.503 9.50298 16.1006 10 16.1006H14Z" fill="currentColor"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2.09961C18.1539 2.09961 19.9004 3.84609 19.9004 6V18C19.9004 20.1539 18.1539 21.9004 16 21.9004H8C5.84609 21.9004 4.09961 20.1539 4.09961 18V6C4.09961 3.84609 5.84609 2.09961 8 2.09961H16ZM8 3.90039C6.8402 3.90039 5.90039 4.8402 5.90039 6V18C5.90039 19.1598 6.8402 20.0996 8 20.0996H16C17.1598 20.0996 18.0996 19.1598 18.0996 18V6C18.0996 4.8402 17.1598 3.90039 16 3.90039H8Z" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+      <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">iPhone 16 Pro</h3>
+      <p style="font-size: 13px; color: var(--text-tertiary); margin-bottom: 12px;">128GB · Titanio preto</p>
+      <div style="display: flex; align-items: baseline;">
+        <span class="price">R$ 7.499</span>
+        <span class="price-old">R$ 8.999</span>
+      </div>
+    </div>
+
+    <div class="phone-card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+        <span class="tag tag-sale">-15%</span>
+        <div class="card-actions">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-tertiary); cursor: pointer;" onmouseover="this.style.color='var(--danger)'" onmouseout="this.style.color='var(--text-tertiary)'">
+            <path d="M11.8008 2.20386C11.8418 2.20504 11.8761 2.20679 11.9004 2.20679C12.9196 2.20697 14.0714 2.95768 14.6924 4.17847C15.3083 5.25838 15.3183 6.6302 15.0029 8.06226H18.0244C20.3536 8.06238 22.3556 10.0885 21.6377 12.4167L19.7588 18.5105C19.286 20.0439 17.7636 21.0064 16.1455 21.0066H8.86621C7.29432 21.0066 6.01953 19.7318 6.01953 18.1599V9.61792C6.01953 8.75706 6.59143 8.12094 7.18652 7.81421C7.74138 7.52813 8.27631 7.03526 8.55762 6.28882C8.7423 5.79875 8.81718 5.36749 8.89551 4.91284C8.90613 4.85121 8.91669 4.78901 8.92773 4.72632C9.01218 4.24725 9.13189 3.60409 9.57715 3.073C9.98574 2.58579 10.4533 2.34616 10.9248 2.25269C11.2492 2.18839 11.6072 2.19827 11.8008 2.20386ZM3.90039 8.70679C4.39721 8.707 4.79972 9.10935 4.7998 9.6062V19.6062C4.7998 20.1031 4.39727 20.5064 3.90039 20.5066C3.40333 20.5066 3 20.1033 3 19.6062V9.6062C3.00009 9.10922 3.40339 8.70679 3.90039 8.70679ZM11.5127 3.99976C11.4072 4.00007 11.3335 4.0066 11.2744 4.01831C11.1904 4.03501 11.0911 4.0682 10.9561 4.22925C10.8577 4.34667 10.79 4.52909 10.7002 5.03882C10.6906 5.093 10.6811 5.15005 10.6709 5.20972C10.5941 5.66065 10.4914 6.26229 10.2422 6.92358C9.77757 8.15644 8.89074 8.9602 8.01074 9.41382C7.93454 9.45309 7.88026 9.5043 7.84961 9.54761C7.82127 9.58767 7.81934 9.6106 7.81934 9.61792V18.1599C7.81934 18.7377 8.28844 19.2068 8.86621 19.2068H16.1455C17.1015 19.2066 17.8346 18.6435 18.0391 17.9802L19.918 11.8865C20.1905 11.0025 19.4593 9.86217 18.0244 9.86206H13.8223C13.5343 9.86197 13.264 9.72391 13.0947 9.49097C12.9254 9.25776 12.8776 8.95738 12.9668 8.68335C13.5367 6.93328 13.5148 5.73387 13.1221 5.05835C13.1126 5.04208 13.1031 5.02537 13.0947 5.00854C12.7129 4.24514 12.1035 4.00689 11.9004 4.00659C11.8294 4.00659 11.7579 4.00414 11.6982 4.00269H11.6865C11.6208 4.00109 11.5658 3.9996 11.5127 3.99976Z" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+      <div class="phone-visual">
+        <div class="phone-screen">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-primary);">
+            <path d="M14 16.1006C14.497 16.1006 14.9003 16.503 14.9004 17C14.9004 17.497 14.497 17.9004 14 17.9004H10C9.50294 17.9004 9.09961 17.4971 9.09961 17C9.09966 16.503 9.50298 16.1006 10 16.1006H14Z" fill="currentColor"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2.09961C18.1539 2.09961 19.9004 3.84609 19.9004 6V18C19.9004 20.1539 18.1539 21.9004 16 21.9004H8C5.84609 21.9004 4.09961 20.1539 4.09961 18V6C4.09961 3.84609 5.84609 2.09961 8 2.09961H16ZM8 3.90039C6.8402 3.90039 5.90039 4.8402 5.90039 6V18C5.90039 19.1598 6.8402 20.0996 8 20.0996H16C17.1598 20.0996 18.0996 19.1598 18.0996 18V6C18.0996 4.8402 17.1598 3.90039 16 3.90039H8Z" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+      <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">iPhone 15</h3>
+      <p style="font-size: 13px; color: var(--text-tertiary); margin-bottom: 12px;">128GB · Azul · Seminovo</p>
+      <div style="display: flex; align-items: baseline;">
+        <span class="price">R$ 4.299</span>
+        <span class="price-old">R$ 5.099</span>
+      </div>
+    </div>
+
+    <div class="phone-card">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px;">
+        <span class="tag tag-stock">Seminovo</span>
+        <div class="card-actions">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-tertiary); cursor: pointer;" onmouseover="this.style.color='var(--danger)'" onmouseout="this.style.color='var(--text-tertiary)'">
+            <path d="M11.8008 2.20386C11.8418 2.20504 11.8761 2.20679 11.9004 2.20679C12.9196 2.20697 14.0714 2.95768 14.6924 4.17847C15.3083 5.25838 15.3183 6.6302 15.0029 8.06226H18.0244C20.3536 8.06238 22.3556 10.0885 21.6377 12.4167L19.7588 18.5105C19.286 20.0439 17.7636 21.0064 16.1455 21.0066H8.86621C7.29432 21.0066 6.01953 19.7318 6.01953 18.1599V9.61792C6.01953 8.75706 6.59143 8.12094 7.18652 7.81421C7.74138 7.52813 8.27631 7.03526 8.55762 6.28882C8.7423 5.79875 8.81718 5.36749 8.89551 4.91284C8.90613 4.85121 8.91669 4.78901 8.92773 4.72632C9.01218 4.24725 9.13189 3.60409 9.57715 3.073C9.98574 2.58579 10.4533 2.34616 10.9248 2.25269C11.2492 2.18839 11.6072 2.19827 11.8008 2.20386ZM3.90039 8.70679C4.39721 8.707 4.79972 9.10935 4.7998 9.6062V19.6062C4.7998 20.1031 4.39727 20.5064 3.90039 20.5066C3.40333 20.5066 3 20.1033 3 19.6062V9.6062C3.00009 9.10922 3.40339 8.70679 3.90039 8.70679ZM11.5127 3.99976C11.4072 4.00007 11.3335 4.0066 11.2744 4.01831C11.1904 4.03501 11.0911 4.0682 10.9561 4.22925C10.8577 4.34667 10.79 4.52909 10.7002 5.03882C10.6906 5.093 10.6811 5.15005 10.6709 5.20972C10.5941 5.66065 10.4914 6.26229 10.2422 6.92358C9.77757 8.15644 8.89074 8.9602 8.01074 9.41382C7.93454 9.45309 7.88026 9.5043 7.84961 9.54761C7.82127 9.58767 7.81934 9.6106 7.81934 9.61792V18.1599C7.81934 18.7377 8.28844 19.2068 8.86621 19.2068H16.1455C17.1015 19.2066 17.8346 18.6435 18.0391 17.9802L19.918 11.8865C20.1905 11.0025 19.4593 9.86217 18.0244 9.86206H13.8223C13.5343 9.86197 13.264 9.72391 13.0947 9.49097C12.9254 9.25776 12.8776 8.95738 12.9668 8.68335C13.5367 6.93328 13.5148 5.73387 13.1221 5.05835C13.1126 5.04208 13.1031 5.02537 13.0947 5.00854C12.7129 4.24514 12.1035 4.00689 11.9004 4.00659C11.8294 4.00659 11.7579 4.00414 11.6982 4.00269H11.6865C11.6208 4.00109 11.5658 3.9996 11.5127 3.99976Z" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+      <div class="phone-visual">
+        <div class="phone-screen">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-primary);">
+            <path d="M14 16.1006C14.497 16.1006 14.9003 16.503 14.9004 17C14.9004 17.497 14.497 17.9004 14 17.9004H10C9.50294 17.9004 9.09961 17.4971 9.09961 17C9.09966 16.503 9.50298 16.1006 10 16.1006H14Z" fill="currentColor"/>
+            <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2.09961C18.1539 2.09961 19.9004 3.84609 19.9004 6V18C19.9004 20.1539 18.1539 21.9004 16 21.9004H8C5.84609 21.9004 4.09961 20.1539 4.09961 18V6C4.09961 3.84609 5.84609 2.09961 8 2.09961H16ZM8 3.90039C6.8402 3.90039 5.90039 4.8402 5.90039 6V18C5.90039 19.1598 6.8402 20.0996 8 20.0996H16C17.1598 20.0996 18.0996 19.1598 18.0996 18V6C18.0996 4.8402 17.1598 3.90039 16 3.90039H8Z" fill="currentColor"/>
+          </svg>
+        </div>
+      </div>
+      <h3 style="font-size: 16px; font-weight: 600; margin-bottom: 4px;">iPhone 14 Pro Max</h3>
+      <p style="font-size: 13px; color: var(--text-tertiary); margin-bottom: 12px;">256GB · Roxo profundo · Seminovo</p>
+      <div style="display: flex; align-items: baseline;">
+        <span class="price">R$ 5.799</span>
+        <span class="price-old">R$ 7.299</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="scroll-reveal" style="text-align: center; margin-top: 24px;">
+    <a href="#" class="btn-secondary">
+      Ver todos os modelos
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M21.4387 12.814C21.788 12.4622 21.787 11.8941 21.4364 11.5436L15.8979 6.0051C15.5464 5.65363 14.9766 5.65363 14.6251 6.0051C14.2737 6.35657 14.2737 6.92642 14.6251 7.27789L18.6272 11.28H2.79998C2.30293 11.28 1.89998 11.6829 1.89998 12.18C1.89998 12.677 2.30293 13.08 2.79998 13.08H18.6382L14.6228 17.1245C14.2726 17.4772 14.2747 18.0471 14.6274 18.3973C14.9802 18.7475 15.55 18.7454 15.9002 18.3927L21.4387 12.814Z" fill="currentColor"/>
+      </svg>
+    </a>
+  </div>
+</section>
+
+<!-- BENEFICIOS -->
+<section id="beneficios" style="margin-bottom: 80px;">
+  <div class="scroll-reveal">
+    <h2 class="section-title">Por que comprar na iStore?</h2>
+    <p class="section-subtitle">Garantia, seguranca e o melhor atendimento do mercado de iPhones.</p>
+  </div>
+  <div class="features-grid scroll-reveal" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 12px;">
+
+    <div class="feature-item">
+      <div style="width: 40px; height: 40px; border-radius: 10px; background: var(--surface-raised); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-primary);">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M17 3.8H7C5.78497 3.8 4.8 4.78497 4.8 6V15.7647C4.8 16.574 5.24438 17.318 5.95698 17.7017L10.957 20.394C11.6081 20.7446 12.3919 20.7446 13.043 20.394L18.043 17.7017C18.7556 17.318 19.2 16.574 19.2 15.7647V6C19.2 4.78497 18.215 3.8 17 3.8ZM7 2C4.79086 2 3 3.79086 3 6V15.7647C3 17.2362 3.80796 18.5889 5.1036 19.2866L10.1036 21.9789C11.2875 22.6164 12.7125 22.6164 13.8964 21.9789L18.8964 19.2866C20.192 18.5889 21 17.2362 21 15.7647V6C21 3.79086 19.2091 2 17 2H7Z" fill="currentColor"/>
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M16.7248 8.63051C17.0763 8.98198 17.0763 9.55183 16.7248 9.9033L11.7627 14.8654C11.4113 15.2169 10.8414 15.2169 10.4899 14.8654L7.81839 12.1939C7.46692 11.8424 7.46691 11.2726 7.81839 10.9211C8.16986 10.5696 8.7397 10.5696 9.09118 10.9211L11.1263 12.9562L15.4521 8.63051C15.8035 8.27904 16.3734 8.27904 16.7248 8.63051Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 4px;">Garantia de 1 ano</h4>
+        <p style="font-size: 13px; color: var(--text-tertiary); line-height: 1.5;">Todos os aparelhos acompanham garantia completa de 12 meses contra defeitos de fabricacao.</p>
+      </div>
+    </div>
+
+    <div class="feature-item">
+      <div style="width: 40px; height: 40px; border-radius: 10px; background: var(--surface-raised); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-primary);">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M17.711 2.52188C17.2215 2.43557 16.7547 2.76242 16.6684 3.25192L15.9899 7.1L9.97778 7.1L10.6011 3.56521C10.6874 3.07571 10.3605 2.60892 9.87102 2.5226C9.38151 2.43629 8.91472 2.76314 8.82841 3.25265L8.15002 7.1H4.00001C3.50295 7.1 3.10001 7.50294 3.10001 8C3.10001 8.49705 3.50295 8.9 4.00001 8.9H7.83263L6.7394 15.1H3.00001C2.50295 15.1 2.10001 15.5029 2.10001 16C2.10001 16.4971 2.50295 16.9 3.00001 16.9H6.42201L5.78982 20.4853C5.70351 20.9748 6.03036 21.4416 6.51987 21.5279C7.00937 21.6142 7.47617 21.2874 7.56248 20.7979L8.24978 16.9H14.2619L13.6297 20.4853C13.5434 20.9748 13.8702 21.4416 14.3597 21.5279C14.8492 21.6142 15.316 21.2874 15.4023 20.7979L16.0896 16.9H20C20.4971 16.9 20.9 16.4971 20.9 16C20.9 15.5029 20.4971 15.1 20 15.1H16.407L17.5002 8.9H21C21.4971 8.9 21.9 8.49705 21.9 8C21.9 7.50294 21.4971 7.1 21 7.1H17.8176L18.441 3.56449C18.5273 3.07499 18.2005 2.60819 17.711 2.52188ZM15.6725 8.9L14.5792 15.1L8.56717 15.1L9.6604 8.9L15.6725 8.9Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 4px;">Melhor preco garantido</h4>
+        <p style="font-size: 13px; color: var(--text-tertiary); line-height: 1.5;">Encontrou mais barato? A gente iguala o preco. iPhones novos e seminovos com o melhor custo-beneficio.</p>
+      </div>
+    </div>
+
+    <div class="feature-item">
+      <div style="width: 40px; height: 40px; border-radius: 10px; background: var(--surface-raised); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-primary);">
+          <path d="M19.3027 5.9053C19.6542 5.55397 20.2247 5.55388 20.5761 5.9053C20.9273 6.25675 20.9273 6.82734 20.5761 7.17874L9.65911 18.0948C9.30773 18.4461 8.73814 18.446 8.38665 18.0948L3.42376 13.1328C3.0726 12.7814 3.07263 12.2118 3.42376 11.8604C3.77524 11.509 4.34575 11.5089 4.6972 11.8604L9.02239 16.1856L19.3027 5.9053Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 4px;">Nota fiscal e procedencia</h4>
+        <p style="font-size: 13px; color: var(--text-tertiary); line-height: 1.5;">Todos os aparelhos sao revisados, com nota fiscal e historico de procedencia verificavel.</p>
+      </div>
+    </div>
+
+    <div class="feature-item">
+      <div style="width: 40px; height: 40px; border-radius: 10px; background: var(--surface-raised); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-primary);">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM12 3.8C16.5286 3.8 20.2 7.47143 20.2 12C20.2 16.5286 16.5286 20.2 12 20.2C7.47143 20.2 3.8 16.5286 3.8 12C3.8 7.47143 7.47143 3.8 12 3.8ZM12.9 6.5C12.9 6.00294 12.4971 5.6 12 5.6C11.5029 5.6 11.1 6.00294 11.1 6.5V12C11.1 12.3184 11.2551 12.6156 11.5114 12.8L15.0114 15.3C15.4209 15.5936 15.9936 15.4936 16.2872 15.0841C16.5809 14.6746 16.4809 14.1019 16.0714 13.8083L12.9 11.5554V6.5Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 4px;">Entrega em 24 horas</h4>
+        <p style="font-size: 13px; color: var(--text-tertiary); line-height: 1.5;">Enviamos para todo o Brasil com rastreamento. Nas capitais, entrega expressa em ate 24h.</p>
+      </div>
+    </div>
+
+    <div class="feature-item">
+      <div style="width: 40px; height: 40px; border-radius: 10px; background: var(--surface-raised); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-primary);">
+          <path d="M11.8008 2.20386C11.8418 2.20504 11.8761 2.20679 11.9004 2.20679C12.9196 2.20697 14.0714 2.95768 14.6924 4.17847C15.3083 5.25838 15.3183 6.6302 15.0029 8.06226H18.0244C20.3536 8.06238 22.3556 10.0885 21.6377 12.4167L19.7588 18.5105C19.286 20.0439 17.7636 21.0064 16.1455 21.0066H8.86621C7.29432 21.0066 6.01953 19.7318 6.01953 18.1599V9.61792C6.01953 8.75706 6.59143 8.12094 7.18652 7.81421C7.74138 7.52813 8.27631 7.03526 8.55762 6.28882C8.7423 5.79875 8.81718 5.36749 8.89551 4.91284C8.90613 4.85121 8.91669 4.78901 8.92773 4.72632C9.01218 4.24725 9.13189 3.60409 9.57715 3.073C9.98574 2.58579 10.4533 2.34616 10.9248 2.25269C11.2492 2.18839 11.6072 2.19827 11.8008 2.20386ZM3.90039 8.70679C4.39721 8.707 4.79972 9.10935 4.7998 9.6062V19.6062C4.7998 20.1031 4.39727 20.5064 3.90039 20.5066C3.40333 20.5066 3 20.1033 3 19.6062V9.6062C3.00009 9.10922 3.40339 8.70679 3.90039 8.70679ZM11.5127 3.99976C11.4072 4.00007 11.3335 4.0066 11.2744 4.01831C11.1904 4.03501 11.0911 4.0682 10.9561 4.22925C10.8577 4.34667 10.79 4.52909 10.7002 5.03882C10.6906 5.093 10.6811 5.15005 10.6709 5.20972C10.5941 5.66065 10.4914 6.26229 10.2422 6.92358C9.77757 8.15644 8.89074 8.9602 8.01074 9.41382C7.93454 9.45309 7.88026 9.5043 7.84961 9.54761C7.82127 9.58767 7.81934 9.6106 7.81934 9.61792V18.1599C7.81934 18.7377 8.28844 19.2068 8.86621 19.2068H16.1455C17.1015 19.2066 17.8346 18.6435 18.0391 17.9802L19.918 11.8865C20.1905 11.0025 19.4593 9.86217 18.0244 9.86206H13.8223C13.5343 9.86197 13.264 9.72391 13.0947 9.49097C12.9254 9.25776 12.8776 8.95738 12.9668 8.68335C13.5367 6.93328 13.5148 5.73387 13.1221 5.05835C13.1126 5.04208 13.1031 5.02537 13.0947 5.00854C12.7129 4.24514 12.1035 4.00689 11.9004 4.00659C11.8294 4.00659 11.7579 4.00414 11.6982 4.00269H11.6865C11.6208 4.00109 11.5658 3.9996 11.5127 3.99976Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 4px;">Seminovos de qualidade</h4>
+        <p style="font-size: 13px; color: var(--text-tertiary); line-height: 1.5;">Cada iPhone seminovo passa por 30 testes de qualidade. Parece novo, paga muito menos.</p>
+      </div>
+    </div>
+
+    <div class="feature-item">
+      <div style="width: 40px; height: 40px; border-radius: 10px; background: var(--surface-raised); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-primary);">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2ZM12 3.8C16.5286 3.8 20.2 7.47143 20.2 12C20.2 16.5286 16.5286 20.2 12 20.2C7.47143 20.2 3.8 16.5286 3.8 12C3.8 7.47143 7.47143 3.8 12 3.8ZM12.9 6.5C12.9 6.00294 12.4971 5.6 12 5.6C11.5029 5.6 11.1 6.00294 11.1 6.5V12C11.1 12.3184 11.2551 12.6156 11.5114 12.8L15.0114 15.3C15.4209 15.5936 15.9936 15.4936 16.2872 15.0841C16.5809 14.6746 16.4809 14.1019 16.0714 13.8083L12.9 11.5554V6.5Z" fill="currentColor"/>
+        </svg>
+      </div>
+      <div>
+        <h4 style="font-size: 15px; font-weight: 600; margin-bottom: 4px;">Atendimento personalizado</h4>
+        <p style="font-size: 13px; color: var(--text-tertiary); line-height: 1.5;">Nossos especialistas ajudam a escolher o modelo ideal para voce. Suporte antes e depois da compra.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DEPOIMENTOS -->
+<section id="depoimentos" style="margin-bottom: 80px;">
+  <div class="scroll-reveal">
+    <h2 class="section-title">O que nossos clientes dizem</h2>
+    <p class="section-subtitle">Mais de 2.000 iPhones vendidos com satisfacao garantida.</p>
+  </div>
+  <div class="testimonials-grid scroll-reveal" style="display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 16px;">
+
+    <div class="testimonial-card">
+      <div style="display: flex; gap: 4px; margin-bottom: 12px;">
+        <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+      </div>
+      <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px;">"Comprei um iPhone 15 Pro seminovo e chegou impecavel. Nem parece usado. A garantia de 1 ano me deu total seguranca. Recomendo demais!"</p>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="avatar">LC</div>
+        <div>
+          <div style="font-size: 14px; font-weight: 600;">Lucas Costa</div>
+          <div style="font-size: 12px; color: var(--text-tertiary);">Sao Paulo, SP</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div style="display: flex; gap: 4px; margin-bottom: 12px;">
+        <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+      </div>
+      <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px;">"Atendimento excelente! O vendedor me ajudou a escolher entre o 14 e o 15. Entrega foi super rapida, chegou em menos de 24h aqui no Rio."</p>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="avatar">MS</div>
+        <div>
+          <div style="font-size: 14px; font-weight: 600;">Mariana Silva</div>
+          <div style="font-size: 12px; color: var(--text-tertiary);">Rio de Janeiro, RJ</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="testimonial-card">
+      <div style="display: flex; gap: 4px; margin-bottom: 12px;">
+        <span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span><span class="star">&#9733;</span>
+      </div>
+      <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 16px;">"Ja e a terceira vez que compro aqui. Sempre nota fiscal, sempre original. O parcelamento em 12x sem juros facilitou muito. Nota 10!"</p>
+      <div style="display: flex; align-items: center; gap: 12px;">
+        <div class="avatar">PO</div>
+        <div>
+          <div style="font-size: 14px; font-weight: 600;">Pedro Oliveira</div>
+          <div style="font-size: 12px; color: var(--text-tertiary);">Belo Horizonte, MG</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- CONTATO / CTA -->
+<section id="contato" style="margin-bottom: 80px;">
+  <div class="scroll-reveal" style="background: var(--surface-raised); border: 1px solid var(--border); border-radius: 16px; padding: 48px 32px; text-align: center;">
+    <h2 class="section-title" style="margin-bottom: 12px;">Pronto para seu novo iPhone?</h2>
+    <p style="font-size: 16px; color: var(--text-secondary); margin-bottom: 32px; max-width: 400px; margin-left: auto; margin-right: auto;">Fale com um especialista e encontre o modelo perfeito para voce. Atendimento rapido e personalizado.</p>
+    <div style="display: flex; gap: 12px; justify-content: center; flex-wrap: wrap;">
+      <a href="https://wa.me/5511999999999" target="_blank" class="btn-primary">
+        Chamar no WhatsApp
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" clip-rule="evenodd" d="M21.4387 12.814C21.788 12.4622 21.787 11.8941 21.4364 11.5436L15.8979 6.0051C15.5464 5.65363 14.9766 5.65363 14.6251 6.0051C14.2737 6.35657 14.2737 6.92642 14.6251 7.27789L18.6272 11.28H2.79998C2.30293 11.28 1.89998 11.6829 1.89998 12.18C1.89998 12.677 2.30293 13.08 2.79998 13.08H18.6382L14.6228 17.1245C14.2726 17.4772 14.2747 18.0471 14.6274 18.3973C14.9802 18.7475 15.55 18.7454 15.9002 18.3927L21.4387 12.814Z" fill="currentColor"/>
+        </svg>
+      </a>
+      <a href="mailto:contato@istorepremium.com" class="btn-secondary">Enviar e-mail</a>
+    </div>
+  </div>
+</section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div style="display: flex; align-items: center; justify-content: center; gap: 10px; font-size: 20px; font-weight: 600; margin-bottom: 12px;">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="color: var(--text-primary);">
+        <path d="M14 16.1006C14.497 16.1006 14.9003 16.503 14.9004 17C14.9004 17.497 14.497 17.9004 14 17.9004H10C9.50294 17.9004 9.09961 17.4971 9.09961 17C9.09966 16.503 9.50298 16.1006 10 16.1006H14Z" fill="currentColor"/>
+        <path fill-rule="evenodd" clip-rule="evenodd" d="M16 2.09961C18.1539 2.09961 19.9004 3.84609 19.9004 6V18C19.9004 20.1539 18.1539 21.9004 16 21.9004H8C5.84609 21.9004 4.09961 20.1539 4.09961 18V6C4.09961 3.84609 5.84609 2.09961 8 2.09961H16ZM8 3.90039C6.8402 3.90039 5.90039 4.8402 5.90039 6V18C5.90039 19.1598 6.8402 20.0996 8 20.0996H16C17.1598 20.0996 18.0996 19.1598 18.0996 18V6C18.0996 4.8402 17.1598 3.90039 16 3.90039H8Z" fill="currentColor"/>
+      </svg>
+      iStore Premium
+    </div>
+    <p style="font-size: 14px; color: var(--text-tertiary); margin-bottom: 8px;">A melhor loja de iPhones novos e seminovos do Brasil.</p>
+    <p style="font-size: 13px; color: var(--text-quaternary);">contato@istorepremium.com · (11) 99999-9999</p>
+    <div class="social-links">
+      <a href="#" aria-label="Instagram">IG</a>
+      <a href="#" aria-label="Facebook">FB</a>
+      <a href="#" aria-label="Twitter">TW</a>
+    </div>
+    <p style="font-size: 12px; color: var(--text-quaternary); margin-top: 24px;">2026 iStore Premium. Todos os direitos reservados.</p>
+  </div>
+</footer>
+
+<script>
+  // Scroll reveal animation
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('revealed');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.scroll-reveal').forEach(el => observer.observe(el));
+
+  // Smooth scroll for nav links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    });
+  });
+
+  // Phone card click feedback
+  document.querySelectorAll('.phone-card').forEach(card => {
+    card.addEventListener('click', function() {
+      alert('Em breve: redirecionamento para pagina de compra!');
+    });
+  });
+</script>
+
+</body>
+</html>
