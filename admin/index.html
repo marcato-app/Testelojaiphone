@@ -49,11 +49,18 @@
       <div class="stat-box"><div class="stat-num" id="stat-media">0</div><div class="stat-label">Com foto/vídeo extra</div></div>
     </div>
 
-    <div class="panel" style="overflow-x:auto;">
-      <table class="admin-table">
-        <thead><tr><th></th><th>Título</th><th>Layout</th><th>Data</th><th>Ações</th></tr></thead>
-        <tbody id="posts-tbody"></tbody>
-      </table>
+    <div class="panel">
+      <div class="dash-toolbar">
+        <input type="text" id="filter-search" placeholder="Buscar por título, autor ou tag...">
+        <select id="filter-category"></select>
+        <span id="posts-count" class="dash-count"></span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="admin-table">
+          <thead><tr><th></th><th>Título</th><th>Layout</th><th>Data</th><th>Ações</th></tr></thead>
+          <tbody id="posts-tbody"></tbody>
+        </table>
+      </div>
     </div>
   </main>
 </div>
@@ -63,9 +70,15 @@
 <script src="../assets/js/render.js"></script>
 <script src="../assets/js/admin.js"></script>
 <script>
-  if (Store.isAuthed()) {
+  function enterDashboard() {
+    document.getElementById("login-screen").hidden = true;
     document.getElementById("dashboard-screen").hidden = false;
     renderDashboard();
+    setupDashboardFilters();
+  }
+
+  if (Store.isAuthed()) {
+    enterDashboard();
   } else {
     document.getElementById("login-screen").hidden = false;
   }
@@ -73,9 +86,7 @@
     e.preventDefault();
     const pass = document.getElementById("login-pass").value;
     if (Store.login(pass)) {
-      document.getElementById("login-screen").hidden = true;
-      document.getElementById("dashboard-screen").hidden = false;
-      renderDashboard();
+      enterDashboard();
     } else {
       toast("Senha incorreta.", "error");
     }

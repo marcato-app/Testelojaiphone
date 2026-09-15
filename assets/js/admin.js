@@ -55,12 +55,34 @@ function imageFileToDataURL(file, maxW) {
 }
 
 /* ---------------- Dashboard ---------------- */
+let dashboardFilter = { term: "", category: "" };
+
 function renderDashboard() {
-  const posts = Store.sortedByDate(Store.getAll());
-  document.getElementById("stat-total").textContent = posts.length;
+  const all = Store.sortedByDate(Store.getAll());
+  document.getElementById("stat-total").textContent = all.length;
   document.getElementById("stat-cats").textContent = Store.categories().length;
-  document.getElementById("stat-breaking").textContent = posts.filter(p => p.breaking).length;
-  document.getElementById("stat-media").textContent = posts.filter(p => p.gallery && p.gallery.length || (p.video)).length;
+  document.getElementById("stat-breaking").textContent = all.filter(p => p.breaking).length;
+  document.getElementById("stat-media").textContent = all.filter(p => (p.gallery && p.gallery.length) || p.video).length;
+
+  const catFilter = document.getElementById("filter-category");
+  if (catFilter && !catFilter.dataset.ready) {
+    catFilter.innerHTML = '<option value="">Todas as editorias</option>' +
+      Store.categories().map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");
+    catFilter.dataset.ready = "1";
+  }
+
+  const term = dashboardFilter.term.trim().toLowerCase();
+  const posts = all.filter(p => {
+    const matchesCat = !dashboardFilter.category || p.category === dashboardFilter.category;
+    const matchesTerm = !term || [p.title, p.category, p.author, (p.tags || []).join(" ")]
+      .join(" ").toLowerCase().includes(term);
+    return matchesCat && matchesTerm;
+  });
+
+  const countEl = document.getElementById("posts-count");
+  if (countEl) countEl.textContent = posts.length === all.length
+    ? `${all.length} matéria(s)`
+    : `${posts.length} de ${all.length} matéria(s)`;
 
   const tbody = document.getElementById("posts-tbody");
   tbody.innerHTML = posts.map(p => {
@@ -75,11 +97,33 @@ function renderDashboard() {
         <div class="row-actions">
           <a class="btn btn-glass btn-sm" href="editor.html?id=${p.id}">Editar</a>
           <a class="btn btn-glass btn-sm" href="../post.html?slug=${encodeURIComponent(p.slug)}" target="_blank">Ver</a>
+          <button class="btn btn-glass btn-sm" onclick="duplicatePost('${p.id}')">Duplicar</button>
           <button class="btn btn-danger btn-sm" onclick="deletePost('${p.id}')">Excluir</button>
         </div>
       </td>
     </tr>`;
-  }).join("") || `<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text-tertiary);">Nenhum post ainda. Crie o primeiro!</td></tr>`;
+  }).join("") || `<tr><td colspan="5" style="text-align:center;padding:40px;color:var(--text-tertiary);">Nenhuma matéria encontrada.</td></tr>`;
+}
+
+function setupDashboardFilters() {
+  const search = document.getElementById("filter-search");
+  const cat = document.getElementById("filter-category");
+  if (search) search.addEventListener("input", () => { dashboardFilter.term = search.value; renderDashboard(); });
+  if (cat) cat.addEventListener("change", () => { dashboardFilter.category = cat.value; renderDashboard(); });
+}
+
+function duplicatePost(id) {
+  const original = Store.getById(id);
+  if (!original) return;
+  const copy = JSON.parse(JSON.stringify(original));
+  copy.id = Store.newId();
+  copy.slug = original.slug + "-copia-" + copy.id.slice(-4);
+  copy.title = original.title + " (cópia)";
+  copy.date = new Date().toISOString();
+  copy.featured = false;
+  Store.upsert(copy);
+  renderDashboard();
+  toast("Matéria duplicada. Agora é só editar.");
 }
 
 function deletePost(id) {
@@ -338,7 +382,12 @@ async function setupVideoUpload() {
 }
 function renderVideoPreview() {
   const box = document.getElementById("video-preview");
-  box.innerHTML = (editorState.video && editorState.video.src) ? `<video src="${escapeHtml(adminSrc(editorState.video.src))}" controls></video>` : "";
+  const src = editorState.video && editorState.video.src;
+  if (!src) { box.innerHTML = ""; return; }
+  const embed = embedUrl(src);
+  box.innerHTML = embed
+    ? `<div class="video-embed" style="border-radius:12px;overflow:hidden;"><iframe src="${escapeHtml(embed)}" frameborder="0" allowfullscreen></iframe></div>`
+    : `<video src="${escapeHtml(adminSrc(src))}" controls></video>`;
 }
 
 /* ---- Carregar / salvar post completo ---- */

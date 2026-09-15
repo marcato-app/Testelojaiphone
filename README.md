@@ -5,6 +5,18 @@ Site de notícias de tecnologia com identidade visual inspirada na Apple
 diferentes. Site 100% estático (HTML/CSS/JS puro) — não precisa de build,
 servidor ou banco de dados para funcionar.
 
+**No ar em:** https://marcato-app.github.io/Testelojaiphone/
+(publicação automática pelo GitHub Pages a cada push na `main`).
+
+## Recursos
+
+- Busca no site (ícone de lupa na barra superior, ou tecla `/`)
+- Tema claro/escuro automático, com alternância manual
+- Barra de progresso de leitura nas matérias
+- Vídeos por upload, link direto `.mp4`, YouTube ou Vimeo
+- Espaços de anúncio prontos em toda a navegação
+- Painel `/admin` com busca, filtro por editoria, duplicação e exportação
+
 ## Estrutura
 
 ```

@@ -72,6 +72,11 @@ textarea { resize: vertical; min-height: 90px; font-family: var(--font); line-he
 .repeat-item { border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 14px; margin-bottom: 12px; position: relative; }
 .repeat-item .remove-btn { position: absolute; top: 10px; right: 10px; color: var(--accent-2); }
 
+.dash-toolbar { display: flex; gap: 10px; align-items: center; margin-bottom: 18px; flex-wrap: wrap; }
+.dash-toolbar input { flex: 1; min-width: 200px; }
+.dash-toolbar select { width: auto; min-width: 180px; }
+.dash-count { font-size: 12.5px; color: var(--text-tertiary); white-space: nowrap; }
+
 table.admin-table { width: 100%; border-collapse: collapse; }
 table.admin-table th { text-align: left; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; color: var(--text-tertiary); padding: 10px 12px; border-bottom: 1px solid var(--border); }
 table.admin-table td { padding: 12px; border-bottom: 1px solid var(--border); font-size: 14px; vertical-align: middle; }

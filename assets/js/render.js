@@ -48,8 +48,22 @@ function inline(str) {
   let s = escapeHtml(str);
   s = s.replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>");
   s = s.replace(/\*(.+?)\*/g, "<em>$1</em>");
-  s = s.replace(/\[(.+?)\]\((.+?)\)/g, '<a href="$2" target="_blank" rel="noopener">$1</a>');
+  s = s.replace(/\[(.+?)\]\((.+?)\)/g, (m, text, href) => {
+    const external = /^https?:/i.test(href);
+    return `<a href="${href}"${external ? ' target="_blank" rel="noopener"' : ""}>${text}</a>`;
+  });
   return s.replace(/\n/g, "<br>");
+}
+
+/* Converte um link de YouTube/Vimeo no endereço de incorporação.
+   Retorna null quando não for um serviço reconhecido. */
+function embedUrl(url) {
+  if (!url) return null;
+  const yt = url.match(/(?:youtube\.com\/(?:watch\?v=|embed\/|live\/|shorts\/)|youtu\.be\/)([A-Za-z0-9_-]{6,})/);
+  if (yt) return "https://www.youtube.com/embed/" + yt[1];
+  const vimeo = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+  if (vimeo) return "https://player.vimeo.com/video/" + vimeo[1];
+  return null;
 }
 
 /* -------- Anúncios -------- */
@@ -130,8 +144,8 @@ function renderCardHorizontal(post) {
 
 /* -------- Navegação / rodapé -------- */
 function renderNav(activeCategory) {
-  const cats = ["Apple", "Análises", "Eventos", "Guias", "Entrevistas", "Reportagem"];
-  const links = cats.map(c => `<a class="nav-link${c === activeCategory ? " active" : ""}" href="categoria.html?c=${encodeURIComponent(c)}">${c}</a>`).join("");
+  const cats = Store.categories().slice(0, 6);
+  const links = cats.map(c => `<a class="nav-link${c === activeCategory ? " active" : ""}" href="categoria.html?c=${encodeURIComponent(c)}">${escapeHtml(c)}</a>`).join("");
   document.getElementById("nav-root").innerHTML = `
   <header class="site-header">
     <nav class="glass-nav">
@@ -144,6 +158,9 @@ function renderNav(activeCategory) {
         </a>
         <div class="nav-links">${links}</div>
         <div class="nav-actions">
+          <button class="icon-btn" id="search-toggle" title="Buscar" aria-label="Buscar">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+          </button>
           <button class="icon-btn" id="theme-toggle" title="Alternar tema" aria-label="Alternar tema">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>
           </button>
@@ -155,11 +172,72 @@ function renderNav(activeCategory) {
       </div>
     </nav>
     <div class="mobile-menu glass" id="mobile-menu" hidden>${links}</div>
-  </header>`;
+  </header>
+  <div class="search-overlay" id="search-overlay" hidden>
+    <div class="search-panel glass">
+      <div class="search-input-row">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/><path d="M16.5 16.5L21 21" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        <input type="text" id="search-input" placeholder="Buscar matérias, temas, marcas..." autocomplete="off">
+        <button class="icon-btn" id="search-close" aria-label="Fechar">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6 6l12 12M18 6L6 18" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+        </button>
+      </div>
+      <div class="search-results" id="search-results"></div>
+    </div>
+  </div>`;
   document.getElementById("theme-toggle").addEventListener("click", () => Theme.toggle());
   const burger = document.getElementById("burger-toggle");
   const menu = document.getElementById("mobile-menu");
   if (burger) burger.addEventListener("click", () => { menu.hidden = !menu.hidden; });
+  setupSearch();
+}
+
+function setupSearch() {
+  const overlay = document.getElementById("search-overlay");
+  const input = document.getElementById("search-input");
+  const results = document.getElementById("search-results");
+
+  function open() {
+    overlay.hidden = false;
+    input.value = "";
+    renderResults("");
+    setTimeout(() => input.focus(), 50);
+  }
+  function close() { overlay.hidden = true; }
+
+  function renderResults(term) {
+    const q = term.trim().toLowerCase();
+    const all = Store.sortedByDate(Store.getAll());
+    const list = q
+      ? all.filter(p => [p.title, p.subtitle, p.excerpt, p.category, (p.tags || []).join(" ")]
+          .join(" ").toLowerCase().includes(q))
+      : all.slice(0, 5);
+    if (!list.length) {
+      results.innerHTML = `<p class="search-empty">Nenhuma matéria encontrada para "${escapeHtml(term)}".</p>`;
+      return;
+    }
+    results.innerHTML = `${q ? "" : '<p class="search-label">Mais recentes</p>'}` + list.slice(0, 8).map(p => `
+      <a class="search-item" href="post.html?slug=${encodeURIComponent(p.slug)}">
+        <img src="${escapeHtml(p.cover ? p.cover.src : "")}" alt="" loading="lazy">
+        <div>
+          <span class="search-cat">${escapeHtml(p.category)}</span>
+          <div class="search-title">${escapeHtml(p.title)}</div>
+        </div>
+      </a>`).join("");
+  }
+
+  document.getElementById("search-toggle").addEventListener("click", open);
+  document.getElementById("search-close").addEventListener("click", close);
+  overlay.addEventListener("click", e => { if (e.target === overlay) close(); });
+  input.addEventListener("input", () => renderResults(input.value));
+  document.addEventListener("keydown", e => {
+    if (e.key === "Escape" && !overlay.hidden) close();
+    if ((e.key === "/" || (e.key === "k" && (e.metaKey || e.ctrlKey))) && overlay.hidden &&
+        !/input|textarea/i.test(document.activeElement.tagName)) {
+      e.preventDefault();
+      open();
+    }
+  });
 }
 
 function renderFooter() {
@@ -175,10 +253,10 @@ function renderFooter() {
           <p style="font-size:13.5px;color:var(--text-secondary);max-width:280px;margin-top:10px;">Notícias, análises e reportagens sobre o universo da tecnologia — todos os dias.</p>
         </div>
         <div><h4>Editorias</h4>
-          <a href="categoria.html?c=Apple">Apple</a><a href="categoria.html?c=Análises">Análises</a><a href="categoria.html?c=Eventos">Eventos</a>
+          ${Store.categories().slice(0, 4).map(c => `<a href="categoria.html?c=${encodeURIComponent(c)}">${escapeHtml(c)}</a>`).join("")}
         </div>
         <div><h4>Institucional</h4>
-          <a href="admin/index.html">Área do editor</a><a href="index.html">Sobre a Órbita</a><a href="index.html">Contato</a>
+          <a href="admin/index.html">Área do editor</a><a href="categoria.html">Todas as matérias</a>
         </div>
         <div><h4>Siga</h4>
           <a href="#">X / Twitter</a><a href="#">Instagram</a><a href="#">YouTube</a>
@@ -198,8 +276,14 @@ function renderFooter() {
 
 function setupRevealAnimations() {
   const els = document.querySelectorAll(".reveal");
+  if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    els.forEach(el => el.classList.add("in"));
+    return;
+  }
+  // rootMargin generoso revela um pouco antes de entrar na tela, o que evita
+  // blocos em branco quando a rolagem é muito rápida.
   const io = new IntersectionObserver(entries => {
     entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add("in"); io.unobserve(e.target); } });
-  }, { threshold: 0.1 });
+  }, { threshold: 0, rootMargin: "300px 0px" });
   els.forEach(el => io.observe(el));
 }

@@ -53,10 +53,11 @@ const LAYOUT_RENDERERS = {
   },
 
   breaking(post) {
+    const label = post.liveLabel || (post.layout === "live" ? "AO VIVO" : "ÚLTIMA HORA");
     return `
     <div class="container-narrow">
       <div class="breaking-banner">
-        <span class="kicker">🔴 AO VIVO</span>
+        <span class="kicker">🔴 ${escapeHtml(label)}</span>
         <h1>${escapeHtml(post.title)}</h1>
         ${post.subtitle ? `<p style="opacity:.9">${escapeHtml(post.subtitle)}</p>` : ""}
       </div>
@@ -83,12 +84,15 @@ const LAYOUT_RENDERERS = {
   video(post) {
     const v = post.video || post.cover || {};
     const others = Store.sortedByDate(Store.getAll().filter(p => p.id !== post.id && p.layout === "video")).slice(0, 4);
+    const embed = embedUrl(v.src);
     const hasVideo = !!v.src;
     return `
     ${articleHeader(post)}
     <div class="container-narrow">
       <div class="video-player">
-        ${hasVideo
+        ${embed
+          ? `<div class="video-embed"><iframe src="${escapeHtml(embed)}" title="${escapeHtml(post.title)}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></div>`
+          : hasVideo
           ? `<video src="${escapeHtml(v.src)}" ${v.poster ? `poster="${escapeHtml(v.poster)}"` : ""} controls playsinline></video>`
           : `<div style="position:relative;aspect-ratio:16/9;">
                <img src="${escapeHtml(v.poster || "")}" alt="" style="width:100%;height:100%;object-fit:cover;">
@@ -262,4 +266,19 @@ function renderPostPage() {
   window.__GALLERY__ = post.gallery || [];
   root.innerHTML = renderer(post);
   setupRevealAnimations();
+  setupReadProgress();
+}
+
+function setupReadProgress() {
+  const bar = document.createElement("div");
+  bar.className = "read-progress";
+  document.body.appendChild(bar);
+  const update = () => {
+    const scrollable = document.body.scrollHeight - window.innerHeight;
+    const pct = scrollable > 0 ? (window.scrollY / scrollable) * 100 : 0;
+    bar.style.width = Math.min(100, Math.max(0, pct)) + "%";
+  };
+  window.addEventListener("scroll", update, { passive: true });
+  window.addEventListener("resize", update);
+  update();
 }

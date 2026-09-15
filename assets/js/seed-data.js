@@ -1,13 +1,11 @@
-/* ÓRBITA — conteúdo inicial (seed). Isso é usado quando não há nada salvo
-   ainda no navegador (localStorage). O admin pode editar/criar posts em
-   /admin — as alterações ficam salvas neste navegador. Para publicar de
-   forma permanente para todos os visitantes, use "Exportar" no admin e
-   substitua o conteúdo deste arquivo pelo código gerado.
+/* ÓRBITA — conteúdo publicado do site.
+   Este arquivo é a fonte do conteúdo que todo visitante vê. O painel /admin
+   permite criar e editar matérias (salvas no navegador do editor); para
+   publicar de forma definitiva, use "Exportar conteúdo" no admin e
+   substitua este arquivo pelo código gerado.
 
-   As imagens de exemplo abaixo são artes abstratas locais
-   (assets/images/*.svg) para o site funcionar 100% offline, sem depender
-   de nenhum serviço externo de fotos. Basta trocá-las pelas suas próprias
-   fotos e vídeos pelo painel /admin. */
+   As artes de capa são ilustrações abstratas locais (assets/images/*.svg),
+   para o site não depender de nenhum serviço externo de imagens. */
 
 window.SEED_POSTS = [
   {
@@ -24,7 +22,7 @@ window.SEED_POSTS = [
     cover: { type: "image", src: "assets/images/cover-12.svg", alt: "Ilustração de smartphone dobrável", caption: "O iPhone Duo foi apresentado por John Ternus, CEO da Apple." },
     excerpt: "O aparelho abre como um livro, roda o mesmo chip A20 Pro dos modelos Pro e chega a partir de US$ 1.999.",
     tags: ["iPhone Duo", "Apple", "Dobrável"],
-    body: "Depois de anos de especulação, a Apple confirmou nesta semana seu primeiro iPhone dobrável: o iPhone Duo. O anúncio foi feito por John Ternus, que assumiu recentemente o cargo de CEO da Apple, durante o evento de 9 de setembro de 2026 em Cupertino — o mesmo em que a empresa revelou o iPhone 18 Pro e o iPhone 18 Pro Max.\n\n## Um iPhone que abre como um livro\n\nO Duo tem uma tela externa de 5,4 polegadas e, ao ser aberto, revela uma tela interna de 7,6 polegadas — mantendo a mesma proporção em ambos os painéis para que a transição entre os dois modos pareça contínua. A estrutura é de titânio usinado e polido, com Ceramic Shield na parte de trás e Ceramic Shield 2 na tela frontal, além de certificação IP68 contra água e poeira. A câmera frontal fica escondida sob a própria tela.\n\n![Ilustração do formato dobrável do iPhone Duo](assets/images/duo-inline.svg)\n\n## Mesmo chip dos modelos Pro\n\nO aparelho roda o chip A20 Pro, o mesmo dos novos iPhone 18 Pro e Pro Max, fabricado em processo de 2 nanômetros e com até 35% mais desempenho sustentado — importante para lidar com o consumo extra de duas telas.\n\n## Software pensado para a tela dobrável\n\nO iPhone Duo roda o iOS 27 com uma camada de recursos exclusiva para o formato dobrável, incluindo o Split View, que permite usar dois aplicativos lado a lado na tela grande, e o pareamento de apps, para abrir rapidamente combinações de aplicativos usadas com frequência.\n\n## Cores, preço e data\n\nO iPhone Duo chega em duas cores, Star White e Night Sky, com preços a partir de US$ 1.999 para a versão de 256GB, chegando a US$ 3.199 na configuração de 2TB. As pré-vendas começam em 16 de outubro, com chegada às lojas em 23 de outubro.\n\n---\n\n> \"É a maior mudança no iPhone desde que ele foi criado, em 2007\", disse a Apple durante a apresentação.\n\nA Apple entra assim em um mercado até então dominado pela Samsung, que vende telas dobráveis há anos. Resta saber se o restante da indústria vai seguir o mesmo caminho."
+    body: "Depois de anos de especulação, a Apple confirmou seu primeiro iPhone dobrável: o iPhone Duo. O anúncio foi feito por John Ternus, que assumiu recentemente o cargo de CEO da Apple, durante o evento de 9 de setembro de 2026 em Cupertino — o mesmo em que a empresa revelou o iPhone 18 Pro e o iPhone 18 Pro Max.\n\n## Um iPhone que abre como um livro\n\nO Duo tem uma tela externa de 5,4 polegadas e, ao ser aberto, revela uma tela interna de 7,6 polegadas — mantendo a mesma proporção em ambos os painéis para que a transição entre os dois modos pareça contínua. A estrutura é de titânio usinado e polido, com Ceramic Shield na parte de trás e Ceramic Shield 2 na tela frontal, além de certificação IP68 contra água e poeira. A câmera frontal fica escondida sob a própria tela.\n\n![Ilustração do formato dobrável do iPhone Duo](assets/images/duo-inline.svg)\n\n## Mesmo chip dos modelos Pro\n\nO aparelho roda o chip A20 Pro, o mesmo dos novos iPhone 18 Pro e Pro Max, fabricado em processo de 2 nanômetros e com até 35% mais desempenho sustentado — importante para lidar com o consumo extra de duas telas. O iPhone Duo também tem suporte ao Apple Pencil.\n\n## Software pensado para a tela dobrável\n\nO Duo roda o iOS 27 adaptado ao formato dobrável, com suporte a múltiplas orientações e posições de dobra. Entre os recursos estão o Split View, que permite usar dois aplicativos lado a lado na tela grande, e o pareamento de apps, para abrir rapidamente combinações usadas com frequência.\n\n## Cores, preço e data\n\nO iPhone Duo chega em duas cores, Star White e Night Sky, com preços a partir de US$ 1.999 na versão de 256GB, chegando a US$ 3.199 na configuração de 2TB. As pré-vendas começam em 16 de outubro, com chegada às lojas em 23 de outubro.\n\n---\n\nA Apple entra assim em um mercado até então dominado pela Samsung, que vende telas dobráveis há anos.\n\n**Fontes:** [MacRumors](https://www.macrumors.com/2026/09/09/apple-announces-foldable-iphone-duo/) · [CNN Business](https://www.cnn.com/2026/09/09/tech/apple-announces-iphone-duo-first-foldable-iphone) · [Engadget](https://www.engadget.com/2253955/everything-apple-announced-at-the-foldable-iphone-launch/)"
   },
   {
     id: "p11",
@@ -40,199 +38,181 @@ window.SEED_POSTS = [
     cover: { type: "image", src: "assets/images/cover-11.svg", alt: "Ilustração de smartphone em fundo azul", caption: "iPhone 18 Pro e Pro Max foram anunciados em 9 de setembro de 2026." },
     excerpt: "Os novos modelos chegam com o chip A20 Pro em 2nm, bateria recorde e uma Dynamic Island menor.",
     tags: ["iPhone", "Apple", "A20 Pro"],
-    body: "A Apple apresentou oficialmente o iPhone 18 Pro e o iPhone 18 Pro Max no evento realizado em 9 de setembro de 2026, em Cupertino. As pré-vendas começaram no dia 12, e os aparelhos chegam às lojas em mais de 65 países a partir de 18 de setembro.\n\n## Câmera com abertura variável\n\nA principal novidade fica por conta da câmera principal Fusion de 48MP, que ganhou pela primeira vez um sistema mecânico de abertura variável — com seis lâminas físicas que se ajustam entre quatro posições (ƒ/1.48, ƒ/1.8, ƒ/2.8 e ƒ/4.0), recurso até então visto apenas em câmeras profissionais.\n\n![Ilustração não-oficial do novo módulo de câmera](assets/images/iphone18-leak.svg)\n\n## Chip A20 Pro\n\nOs dois modelos rodam o novo chip A20 Pro, fabricado em processo de 2 nanômetros, com ganhos de 18% em desempenho de CPU e 30% em eficiência energética em relação à geração anterior. O iPhone 18 Pro também estreia o modem C2, mais rápido e 15% mais econômico que o C1X.\n\n## Bateria e tela\n\nA autonomia é o maior salto da linha: o Pro Max chega a 45 horas de reprodução de vídeo, contra 39 horas do modelo anterior. O carregamento também ficou mais rápido, atingindo 50% da carga em cerca de 15 minutos. Ambos os modelos mantêm a tela OLED Super Retina XDR com ProMotion, agora com uma Dynamic Island menor — que passa a suportar até três Atividades ao Vivo simultâneas.\n\n## Cores, armazenamento e preço\n\nOs aparelhos chegam em quatro cores — Preto, Glacier, Bordô e Prata — e, pela primeira vez, a opção de 2TB de armazenamento também está disponível no iPhone 18 Pro, não só no Pro Max. Nos Estados Unidos, os preços partem de US$ 1.199 no Pro e US$ 1.299 no Pro Max.\n\n---\n\nO lançamento aconteceu no mesmo evento em que a Apple revelou o [iPhone Duo, seu primeiro iPhone dobrável](post.html?slug=iphone-duo-primeiro-iphone-dobravel-da-apple)."
+    body: "A Apple apresentou oficialmente o iPhone 18 Pro e o iPhone 18 Pro Max no evento realizado em 9 de setembro de 2026, em Cupertino. As pré-vendas começaram no dia 12, e os aparelhos chegam às lojas em mais de 65 países a partir de 18 de setembro.\n\n## Câmera com abertura variável\n\nA principal novidade fica por conta da câmera principal Fusion de 48MP, que ganhou pela primeira vez um sistema mecânico de abertura variável — com seis lâminas físicas que se ajustam entre quatro posições (ƒ/1.48, ƒ/1.8, ƒ/2.8 e ƒ/4.0). Na prática, dá para controlar a profundidade de campo opticamente, em vez de depender do processamento de software.\n\n![Ilustração do novo módulo de câmera](assets/images/iphone18-leak.svg)\n\n## Chip A20 Pro\n\nOs dois modelos rodam o novo chip A20 Pro, fabricado em processo de 2 nanômetros, com ganhos de 18% em desempenho de CPU e 30% em eficiência energética em relação à geração anterior. O iPhone 18 Pro também estreia o modem C2, mais rápido e 15% mais econômico que o C1X.\n\n## Bateria e tela\n\nA autonomia é o maior salto da linha: o Pro Max chega a 45 horas de reprodução de vídeo, contra 39 horas do modelo anterior. O carregamento também ficou mais rápido, atingindo 50% da carga em cerca de 15 minutos. Ambos mantêm a tela OLED Super Retina XDR com ProMotion, agora com uma Dynamic Island menor — que passa a suportar até três Atividades ao Vivo simultâneas.\n\n## Cores, armazenamento e preço\n\nOs aparelhos chegam em quatro cores — Preto, Glacier, Bordô e Prata — e, pela primeira vez, a opção de 2TB de armazenamento também está disponível no iPhone 18 Pro, não só no Pro Max. Nos Estados Unidos, os preços partem de US$ 1.199 no Pro e US$ 1.299 no Pro Max.\n\n---\n\nO lançamento aconteceu no mesmo evento em que a Apple revelou o [iPhone Duo, seu primeiro iPhone dobrável](post.html?slug=iphone-duo-primeiro-iphone-dobravel-da-apple).\n\n**Fontes:** [Apple Newsroom](https://www.apple.com/newsroom/2026/09/apple-debuts-iphone-18-pro-and-iphone-18-pro-max/) · [MacRumors](https://www.macrumors.com/2026/09/09/iphone-18-pro-features-smaller-dynamic-island/) · [TidBITS](https://tidbits.com/2026/09/10/iphone-18-pro-gets-a20-pro-and-variable-aperture-camera/)"
   },
   {
-    id: "p1",
-    slug: "novo-chip-a20-bateria-liquid-glass",
+    id: "n1",
+    slug: "ios-27-disponivel-siri-ai",
     layout: "standard",
     category: "Apple",
-    title: "Apple revela chip A20 com novo núcleo neural e 30% mais eficiência",
-    subtitle: "Processador chega junto do iOS 27 e da nova linguagem visual Liquid Glass, prometendo o maior salto de desempenho em três gerações.",
-    author: "Marina Alves",
-    date: "2026-09-14T09:30:00",
-    readTime: 6,
-    featured: false,
-    cover: { type: "image", src: "assets/images/cover-1.svg", alt: "Chip de silício em close-up", caption: "O A20 é fabricado em processo de 2nm." },
-    excerpt: "Processador chega junto do iOS 27 e da nova linguagem visual Liquid Glass, prometendo o maior salto de desempenho em três gerações.",
-    tags: ["Apple", "Chip", "iPhone"],
-    body: "A Apple anunciou nesta manhã o chip A20, sucessor do A19 Pro, com uma arquitetura de núcleo neural redesenhada e ganhos de até 30% em eficiência energética.\n\n## Desempenho e eficiência\n\nSegundo a empresa, o novo chip usa processo de fabricação de 2 nanômetros, permitindo mais transistores em um espaço menor. Isso resulta em desempenho superior sem aumentar o consumo de bateria — pelo contrário, os testes internos mostram até 6 horas a mais de autonomia em uso intenso.\n\n> \"É o maior salto geracional desde a transição para o silício da Apple\", disse a vice-presidente de engenharia de hardware durante o evento.\n\n![Comparativo de desempenho entre gerações de chips](assets/images/longform-inline.svg)\n\n## Integração com Liquid Glass\n\nO A20 foi desenhado em conjunto com a nova interface Liquid Glass do iOS 27, que utiliza aceleração de hardware para renderizar efeitos de vidro, refração e profundidade em tempo real em toda a interface do sistema.\n\n---\n\nA Apple não confirmou quais dispositivos usarão o chip primeiro, mas rumores apontam para a próxima linha de iPhones no fim do ano."
-  },
-  {
-    id: "p2",
-    slug: "ao-vivo-evento-apple-setembro",
-    layout: "breaking",
-    category: "Eventos",
-    title: "AO VIVO: Apple anuncia nova linha de dispositivos e sistema Liquid Glass",
-    subtitle: "Acompanhe em tempo real os principais anúncios do keynote desta manhã.",
+    title: "iOS 27 chega a todos os iPhones com o novo Siri AI",
+    subtitle: "Atualização liberada em 14 de setembro traz uma arquitetura inteiramente nova para a Siri, recursos de segurança para famílias e ganhos de desempenho.",
     author: "Redação Órbita",
-    date: "2026-09-14T13:00:00",
-    readTime: 3,
-    breaking: true,
-    cover: { type: "image", src: "assets/images/cover-2.svg", alt: "Palco de evento de tecnologia" },
-    excerpt: "Acompanhe em tempo real os principais anúncios do keynote desta manhã.",
-    tags: ["Apple", "Evento", "Ao vivo"],
-    liveUpdates: [
-      { time: "13:42", title: "Encerramento do evento", text: "A Apple encerra o keynote reforçando a chegada do iOS 27 em outubro para todos os modelos compatíveis." },
-      { time: "13:15", title: "Novo design Liquid Glass", text: "A empresa detalha a nova linguagem visual do sistema operacional, com camadas translúcidas e reflexos dinâmicos de luz." },
-      { time: "12:58", title: "Chip A20 é anunciado", text: "Processador promete 30% mais eficiência energética e novo núcleo neural dedicado a IA generativa." },
-      { time: "12:30", title: "Keynote começa", text: "Executivos sobem ao palco no Apple Park para o evento mais aguardado do ano." }
-    ]
+    date: "2026-09-14T14:30:00",
+    readTime: 5,
+    cover: { type: "image", src: "assets/images/ios27.svg", alt: "Ilustração abstrata representando inteligência artificial", caption: "O iOS 27 ficou disponível em 14 de setembro de 2026." },
+    excerpt: "Atualização traz uma arquitetura inteiramente nova para a Siri, recursos de segurança para famílias e ganhos de desempenho.",
+    tags: ["iOS 27", "Apple", "Siri"],
+    body: "A Apple liberou o iOS 27 para o público na segunda-feira, 14 de setembro de 2026, por volta das 10h (horário do Pacífico). É a maior atualização do sistema em anos, e o destaque fica por conta da Siri.\n\n## Siri AI: arquitetura nova, e em beta\n\nO novo Siri AI não é um ajuste do assistente atual: é uma arquitetura completamente nova, com um aplicativo dedicado da Siri. A promessa é de um assistente mais pessoal e conversacional, com suporte a perguntas de acompanhamento naturais, contexto pessoal, consciência do que está na tela e informações atualizadas da web.\n\nVale o aviso: o Siri AI está em **beta** e exige que o usuário opte por ativá-lo — em alguns casos, ainda é preciso entrar em uma lista de espera antes de conseguir acesso.\n\n## Apple Intelligence e outras novidades\n\nO iOS 27 amplia o Apple Intelligence com ferramentas de escrita melhoradas e geração de imagens usando um modelo em nuvem privada. Também chegam melhorias na Inteligência Visual, mais opções de personalização e atualizações em Fotos, Safari, Mensagens, Mail, Senhas, Atalhos e Casa.\n\nOutra adição é o \"iPhone Handoff\", que permite alternar entre dois iPhones usando o mesmo número de telefone nos dois aparelhos.\n\n## Quais iPhones são compatíveis\n\nO iOS 27 roda em todos os modelos a partir do iPhone 11 e do iPhone SE (2ª geração) — embora alguns recursos do Apple Intelligence e da Siri exijam hardware mais novo.\n\n**Fontes:** [MacRumors](https://www.macrumors.com/2026/09/14/apple-releases-ios-27/) · [CNBC](https://www.cnbc.com/2026/09/14/apple-releases-ios-27-redesigned-siri-ai.html) · [Macworld](https://www.macworld.com/article/2986799/ios-27-features-compatiblity-siri-ai-updates.html)"
   },
   {
-    id: "p3",
-    slug: "video-primeiras-impressoes-ios27",
-    layout: "video",
-    category: "Análises",
-    title: "Vídeo: testamos o iOS 27 e o novo visual Liquid Glass por uma semana",
-    subtitle: "Nosso review em vídeo mostra os detalhes da nova interface translúcida em uso real.",
-    author: "Rafael Nunes",
-    date: "2026-09-12T16:00:00",
+    id: "n2",
+    slug: "apple-watch-series-12-ultra-4",
+    layout: "standard",
+    category: "Apple",
+    title: "Apple Watch Series 12 e Ultra 4: o que muda está por dentro",
+    subtitle: "Novo chip S11, medição de batimentos a cada 5 segundos e um recurso de prontidão diária. Por fora, quase nada mudou.",
+    author: "Redação Órbita",
+    date: "2026-09-10T09:00:00",
     readTime: 4,
-    cover: { type: "image", src: "assets/images/video-poster.svg", alt: "Prévia do vídeo de review" },
-    excerpt: "Nosso review em vídeo mostra os detalhes da nova interface translúcida em uso real.",
-    tags: ["iOS", "Vídeo", "Review"],
-    video: { src: "", poster: "assets/images/video-poster.svg" },
-    body: "Passamos sete dias usando a beta pública do iOS 27 no dia a dia. No vídeo acima mostramos como os elementos de vidro líquido reagem à luz e ao movimento, além do impacto real na bateria.\n\n## O que achamos\n\nA transição de app para app ficou visivelmente mais fluida, com os painéis de vidro reagindo ao conteúdo abaixo deles em tempo real."
+    cover: { type: "image", src: "assets/images/watch12.svg", alt: "Ilustração abstrata de relógio inteligente", caption: "Os dois modelos chegaram às lojas em 18 de setembro." },
+    excerpt: "Novo chip S11, medição de batimentos a cada 5 segundos e um recurso de prontidão diária.",
+    tags: ["Apple Watch", "Apple", "Saúde"],
+    body: "A Apple anunciou o Apple Watch Series 12 e o Apple Watch Ultra 4 no evento de 9 de setembro, com envios a partir do dia 18. Olhando de fora, é difícil diferenciar dos modelos anteriores — o que vale a pena está no interior.\n\n## Saúde: medições muito mais frequentes\n\nO sistema de sensores foi redesenhado e agora mede a frequência cardíaca a cada cinco segundos, uma frequência 60 vezes maior do que nos modelos anteriores. Também estreia um recurso de \"prontidão\", que combina dados de atividade, sinais vitais e sono para indicar como está a recuperação do corpo.\n\n## Chip S11 e Siri AI no pulso\n\nOs dois relógios rodam o novo chip S11, que traz componentes de CPU, GPU e Neural Engine derivados do A20 Pro. É ele que viabiliza o Siri AI no relógio e um conjunto de recursos de Audio Intelligence, incluindo reconhecimento de sons, Shazam mais rápido, Live Rewind e o Siri Recap.\n\n## Bateria e preços\n\nO Ultra 4 ganhou uma bateria maior, com mais de dois dias de autonomia. O Series 12 parte de US$ 399 na versão de 42mm em alumínio, e o Ultra 4 começa em US$ 799.\n\n**Fontes:** [9to5Mac](https://9to5mac.com/2026/09/09/apple-watch-series-12-and-ultra-4-unveiled-with-upgraded-health-tracking-system/) · [BGR](https://www.bgr.com/2254059/apple-watch-series-12-ultra-4-price-release-date-new-features/) · [Macworld](https://www.macworld.com/article/3177024/apple-watch-2026-release-date-ultra-series-12-design-features-specs.html)"
   },
   {
-    id: "p4",
-    slug: "galeria-bastidores-apple-park",
+    id: "n3",
+    slug: "airpods-5-cancelamento-de-ruido",
+    layout: "brief",
+    category: "Apple",
+    title: "AirPods 5 chegam por US$ 129 com 50% mais cancelamento de ruído",
+    subtitle: "Modelo de entrada agora inclui ANC; versão de US$ 149 traz estojo com carga sem fio e controle de volume no gesto.",
+    author: "Redação Órbita",
+    date: "2026-09-10T16:20:00",
+    readTime: 2,
+    cover: { type: "image", src: "assets/images/airpods5.svg", alt: "Ilustração abstrata de fones de ouvido", caption: "Os AirPods 5 ficaram disponíveis em 18 de setembro." },
+    excerpt: "Modelo de entrada agora inclui ANC; versão de US$ 149 traz estojo com carga sem fio e controle de volume no gesto.",
+    tags: ["AirPods", "Apple"],
+    body: "A Apple anunciou os AirPods 5, que removem até 50% mais ruído externo que os AirPods 4 graças a uma arquitetura acústica redesenhada e a um Adaptive EQ atualizado. O modelo básico custa US$ 129 já com cancelamento ativo de ruído; por US$ 149, o comprador leva o estojo com carregamento sem fio, controle de volume por deslize na haste e mais bateria — até 5 horas com ANC ligado, ou 22 horas contando o estojo.\n\nOs dois modelos incluem Áudio Adaptativo, Percepção de Conversa e suporte a tradução ao vivo quando pareados com um iPhone compatível com Apple Intelligence.\n\n**Fontes:** [Apple Newsroom](https://www.apple.com/newsroom/2026/09/apple-introduces-airpods-5-with-best-in-class-open-ear-active-noise-cancellation/) · [MacRumors](https://www.macrumors.com/2026/09/09/airpods-5-announced-improved-anc/)"
+  },
+  {
+    id: "n4",
+    slug: "galeria-tudo-que-a-apple-anunciou-setembro-2026",
     layout: "gallery",
     category: "Eventos",
-    title: "Galeria: os bastidores do evento no Apple Park",
-    subtitle: "Fotos exclusivas de dentro do Steve Jobs Theater durante os preparativos do keynote.",
-    author: "Bianca Ferraz",
-    date: "2026-09-13T11:20:00",
+    title: "Em imagens: tudo o que a Apple anunciou no evento de setembro",
+    subtitle: "Do primeiro iPhone dobrável ao novo Apple Watch, um resumo visual dos lançamentos de 9 de setembro.",
+    author: "Redação Órbita",
+    date: "2026-09-09T20:00:00",
     readTime: 3,
-    cover: { type: "image", src: "assets/images/cover-4.svg", alt: "Auditório de evento" },
-    excerpt: "Fotos exclusivas de dentro do Steve Jobs Theater durante os preparativos do keynote.",
-    tags: ["Apple Park", "Fotos", "Bastidores"],
+    cover: { type: "image", src: "assets/images/apple-event.svg", alt: "Ilustração abstrata de palco de evento", caption: "O evento aconteceu no Apple Park, em Cupertino." },
+    excerpt: "Do primeiro iPhone dobrável ao novo Apple Watch, um resumo visual dos lançamentos de 9 de setembro.",
+    tags: ["Apple", "Evento", "Resumo"],
     gallery: [
-      { src: "assets/images/gallery-1.svg", caption: "O palco poucas horas antes do início." },
-      { src: "assets/images/gallery-2.svg", caption: "Área de imprensa credenciada." },
-      { src: "assets/images/gallery-3.svg", caption: "Detalhe da iluminação do teatro." },
-      { src: "assets/images/gallery-4.svg", caption: "Equipe técnica ajustando os telões." },
-      { src: "assets/images/gallery-5.svg", caption: "Vista externa do campus Apple Park." },
-      { src: "assets/images/gallery-6.svg", caption: "Detalhe de um dos novos dispositivos exibidos." }
-    ]
+      { src: "assets/images/ev-1.svg", caption: "iPhone 18 Pro e Pro Max: câmera Fusion de 48MP com abertura variável mecânica e chip A20 Pro de 2nm." },
+      { src: "assets/images/ev-2.svg", caption: "iPhone Duo: o primeiro dobrável da Apple, com tela interna de 7,6\" e externa de 5,4\", a partir de US$ 1.999." },
+      { src: "assets/images/ev-3.svg", caption: "Apple Watch Series 12 e Ultra 4: chip S11, batimentos medidos a cada 5 segundos e recurso de prontidão." },
+      { src: "assets/images/ev-4.svg", caption: "AirPods 5: cancelamento de ruído 50% melhor, a partir de US$ 129." },
+      { src: "assets/images/ev-5.svg", caption: "iOS 27: o novo Siri AI, com arquitetura inteiramente nova, liberado em 14 de setembro." }
+    ],
+    body: "O evento de 9 de setembro de 2026 no Apple Park concentrou a maior leva de lançamentos da Apple no ano: duas linhas de iPhone (incluindo o primeiro dobrável da empresa), dois relógios, novos AirPods e a data de chegada do iOS 27.\n\n**Fontes:** [MacRumors](https://www.macrumors.com/2026/09/09/apple-september-2026-event-recap/) · [Apple Newsroom](https://www.apple.com/newsroom/2026/09/get-ready-to-experience-iphone-18-pro-the-new-apple-watch-lineup-and-airpods-5/)"
   },
   {
-    id: "p5",
-    slug: "10-recursos-liquid-glass-que-voce-precisa-conhecer",
+    id: "n5",
+    slug: "galaxy-z-fold-8-ultra-samsung",
+    layout: "standard",
+    category: "Samsung",
+    title: "Galaxy Z Fold 8 Ultra: a resposta da Samsung tem tela de 8 polegadas e dobra quase invisível",
+    subtitle: "Com dobradiça Flex Titanium, 3.000 nits de brilho e Snapdragon 8 Elite Gen 5, o dobrável da Samsung chegou em agosto — um mês antes do iPhone Duo.",
+    author: "Redação Órbita",
+    date: "2026-09-11T10:00:00",
+    readTime: 5,
+    cover: { type: "image", src: "assets/images/fold8.svg", alt: "Ilustração abstrata de celular dobrável", caption: "O Galaxy Z Fold 8 Ultra chegou às lojas em 7 de agosto de 2026." },
+    excerpt: "Com dobradiça Flex Titanium, 3.000 nits de brilho e Snapdragon 8 Elite Gen 5, o dobrável da Samsung chegou um mês antes do iPhone Duo.",
+    tags: ["Samsung", "Galaxy", "Dobrável"],
+    body: "Enquanto a Apple estreava no mercado de dobráveis em setembro, a Samsung já estava na oitava geração. O Galaxy Z Fold 8 Ultra foi anunciado no Galaxy Unpacked de 22 de julho de 2026, ao lado do Galaxy Z Fold 8 e do Galaxy Z Flip 8, e chegou às lojas em 7 de agosto.\n\n## Tela e construção\n\nO Fold 8 Ultra traz tela interna de 8 polegadas, com brilho de pico de 3.000 nits e um novo revestimento antirreflexo. A dobradiça Flex Titanium deixa o vinco visivelmente menos aparente que na geração anterior — historicamente o maior ponto fraco dos dobráveis.\n\n## Desempenho\n\nO aparelho usa o Snapdragon 8 Elite Gen 5 for Galaxy, o mesmo chip do Galaxy S26 Ultra, com até 16GB de RAM e 1TB de armazenamento. Para dar conta do calor em uso prolongado, a Samsung ampliou a estrutura de resfriamento de grafite, reduzindo o risco de throttling.\n\n## Software e preço\n\nSai de fábrica com a One UI 9.0, baseada no Android 17, com recursos de IA como Call Brief, My FanCam, Now Nudge aprimorado e cartões personalizados no Now Brief. A bateria é de 5.000 mAh. O preço parte de US$ 2.099,99 — US$ 100 a mais que o Fold 7.\n\n## Migração de usuários\n\nA Samsung afirma ter registrado um aumento de 60% no número de usuários de iPhone que migraram para o Galaxy Z Fold 8 Ultra, Z Fold 8 ou Z Flip 8 em comparação com a geração anterior.\n\n**Fontes:** [Samsung Newsroom](https://news.samsung.com/global/galaxy-unpacked-july-2026-a-first-look-at-galaxy-z-fold8-ultra-galaxy-z-fold8-and-galaxy-z-flip8) · [SamMobile](https://www.sammobile.com/news/samsung-galaxy-z-fold-8-ultra-everything-to-know/) · [PhoneArena](https://www.phonearena.com/galaxy-z-fold-8-release-date-price-features-news)"
+  },
+  {
+    id: "n6",
+    slug: "samsung-corrige-90-falhas-setembro-2026",
+    layout: "brief",
+    category: "Samsung",
+    title: "Samsung corrige 90 falhas de segurança em celulares, tablets e relógios Galaxy",
+    subtitle: "Pacote de setembro inclui vulnerabilidades críticas que poderiam permitir execução remota de código.",
+    author: "Redação Órbita",
+    date: "2026-09-08T15:00:00",
+    readTime: 2,
+    cover: { type: "image", src: "assets/images/samsung-sec.svg", alt: "Ilustração abstrata de escudo de segurança", caption: "Aparelhos topo de linha recebem correções mensais." },
+    excerpt: "Pacote de setembro inclui vulnerabilidades críticas que poderiam permitir execução remota de código.",
+    tags: ["Samsung", "Segurança", "Android"],
+    body: "A Samsung detalhou o pacote de segurança de setembro de 2026 para aparelhos Galaxy, que corrige 90 vulnerabilidades no total: 58 vindas do Google, 31 da própria Samsung Mobile e uma da Samsung Semiconductor.\n\nParte das falhas é classificada como crítica e poderia, em tese, permitir execução remota de código — o que torna a atualização especialmente importante para quem usa aparelhos corporativos. Vale lembrar que os modelos topo de linha recebem atualizações mensais, enquanto os demais seguem um ciclo trimestral.\n\n**Fontes:** [SamMobile](https://www.sammobile.com/news/samsung-september-2026-security-patch-detailed/) · [eSecurity Planet](https://www.esecurityplanet.com/threats/news-samsung-september-2026-galaxy-security-update/)"
+  },
+  {
+    id: "n7",
+    slug: "openai-gpt-6-astra",
+    layout: "standard",
+    category: "IA",
+    title: "OpenAI lança o GPT-6 Astra, modelo que usa o computador como um humano",
+    subtitle: "Modelo navega em planilhas, formulários e páginas web em velocidade \"sobre-humana\" e é o primeiro da empresa a acionar o limite de salvaguarda cibernética crítica.",
+    author: "Redação Órbita",
+    date: "2026-09-04T11:00:00",
+    readTime: 6,
+    cover: { type: "image", src: "assets/images/gpt6.svg", alt: "Ilustração abstrata de rede neural", caption: "O Astra foi liberado para organizações aprovadas em 3 de setembro." },
+    excerpt: "Modelo navega em planilhas, formulários e páginas web em velocidade \"sobre-humana\" e aciona o limite de salvaguarda cibernética da empresa.",
+    tags: ["OpenAI", "IA", "GPT-6"],
+    body: "A OpenAI liberou o GPT-6 Astra para um grupo restrito de organizações em 3 de setembro de 2026, com disponibilidade geral no dia seguinte. A empresa havia adiado o lançamento do modelo para adicionar salvaguardas depois de um incidente em julho.\n\n## O que o modelo faz\n\nO Astra é apresentado como estado da arte em uso de computador, engenharia de software, trabalho profissional e ciência. Na prática, ele consegue navegar em um computador como uma pessoa faria: percorre planilhas, preenche formulários e circula entre páginas web — segundo a empresa, muitas vezes em velocidade sobre-humana. No Codex, o modelo passa a manter anotações entre janelas de contexto, preservando detalhes sem comprimir tudo em um resumo único.\n\n## Números\n\nO Astra tem janela de contexto de 1.050.000 tokens, até 128 mil tokens de saída, aceita texto e imagem, e tem conhecimento até 30 de abril de 2026. No API, custa US$ 10 por milhão de tokens de entrada e US$ 50 por milhão de saída.\n\n## Segurança\n\nO Astra é o primeiro modelo da OpenAI a acionar o limite de salvaguarda para capacidade cibernética crítica. A versão pública recusa tarefas ofensivas avançadas, como criar provas de conceito de exploração; salvaguardas mais flexíveis ficam restritas a organizações verificadas.\n\n**Fontes:** [CNBC](https://www.cnbc.com/2026/09/03/open-ai-astra-gpt-6-cyber.html) · [Fortune](https://fortune.com/2026/09/03/openai-debuts-gpt-6-astra-computer-use-greg-brockman-says-start-of-agi/) · [OpenAI](https://deploymentsafety.openai.com/gpt-6-astra)"
+  },
+  {
+    id: "n8",
+    slug: "quatro-lancamentos-de-ia-em-72-horas",
     layout: "list",
-    category: "Guias",
-    title: "10 recursos do Liquid Glass que vão mudar como você usa seu iPhone",
-    subtitle: "Da tela de bloqueio aos widgets, veja o que muda com a nova linguagem visual da Apple.",
-    author: "Diego Martins",
-    date: "2026-09-11T08:00:00",
-    readTime: 8,
-    cover: { type: "image", src: "assets/images/cover-5.svg", alt: "Interface translúcida em smartphone" },
-    excerpt: "Da tela de bloqueio aos widgets, veja o que muda com a nova linguagem visual da Apple.",
-    tags: ["iOS", "Liquid Glass", "Lista"],
+    category: "IA",
+    title: "Quatro modelos de IA de ponta lançados em 72 horas: o que mudou",
+    subtitle: "Entre 1º e 3 de setembro, Anthropic, Google, Meta e OpenAI colocaram novos modelos na rua — três deles com camadas de acesso restrito para capacidades cibernéticas.",
+    author: "Redação Órbita",
+    date: "2026-09-05T08:30:00",
+    readTime: 5,
+    cover: { type: "image", src: "assets/images/ia-race.svg", alt: "Ilustração abstrata de energia e velocidade", caption: "Quatro lançamentos de peso em três dias." },
+    excerpt: "Entre 1º e 3 de setembro, Anthropic, Google, Meta e OpenAI colocaram novos modelos na rua.",
+    tags: ["IA", "OpenAI", "Google", "Anthropic"],
     listItems: [
-      { title: "Painéis de vidro dinâmico", image: "assets/images/list-1.svg", text: "Os menus agora refratam a luz e as cores do conteúdo ao fundo em tempo real, criando profundidade." },
-      { title: "Nova Central de Controle", image: "assets/images/list-2.svg", text: "Os botões flutuam sobre um vidro fosco que se adapta ao papel de parede." },
-      { title: "Widgets com profundidade", image: "assets/images/list-3.svg", text: "Camadas de widgets ganham sombra e paralaxe ao inclinar o aparelho." },
-      { title: "Tela de bloqueio reativa", image: "assets/images/list-4.svg", text: "O relógio e notificações reagem ao toque com ondulações de vidro líquido." },
-      { title: "Modo de foco translúcido", image: "assets/images/list-5.svg", text: "Ícones de apps bloqueados ficam com efeito fosco, indicando indisponibilidade." },
-      { title: "Câmera com HUD de vidro", image: "assets/images/list-6.svg", text: "Os controles da câmera flutuam sobre a cena sem cobrir o enquadramento." },
-      { title: "Novo teclado com profundidade", image: "assets/images/list-7.svg", text: "Teclas ganham leve elevação e reflexo ao serem pressionadas." },
-      { title: "Multitarefa em camadas", image: "assets/images/list-8.svg", text: "Apps recentes aparecem como painéis de vidro empilhados com profundidade real." },
-      { title: "Modo Noturno com âmbar dinâmico", image: "assets/images/list-9.svg", text: "O tom do vidro muda de frio para âmbar conforme o horário do dia." },
-      { title: "Acessibilidade sob medida", image: "assets/images/list-10.svg", text: "É possível reduzir a transparência mantendo a nova estética em blocos sólidos." }
-    ]
+      { title: "Anthropic: Claude Fable 5.1 e Mythos 5.1", image: "assets/images/ia-1.svg", text: "Abriram a semana em 1º de setembro. O Fable 5.1 entrou em disponibilidade geral com o mesmo preço do Fable 5, e a leitura de cache caiu para US$ 0,25. O Mythos 5.1 é a versão de acesso restrito." },
+      { title: "Google DeepMind: Gemini 3.8 Flash", image: "assets/images/ia-2.svg", text: "Chegou em 2 de setembro, com uma variante Cyber liberada apenas para defensores. Nos testes citados, a versão Cyber superou modelos maiores de Anthropic e OpenAI na descoberta autônoma de vulnerabilidades." },
+      { title: "Meta: Muse Spark 1.3", image: "assets/images/ia-3.svg", text: "Lançado discretamente no mesmo 2 de setembro, sem o mesmo alarde dos concorrentes." },
+      { title: "OpenAI: GPT-6 Astra", image: "assets/images/ia-4.svg", text: "Fechou a sequência em 3 de setembro, e foi o primeiro modelo da empresa a acionar o limite de salvaguarda para capacidade cibernética crítica." }
+    ],
+    body: "Foram apenas 72 horas entre o primeiro e o último lançamento. A concentração diz menos sobre coincidência e mais sobre o ritmo atual da indústria — e sobre um padrão que se repete: três dos quatro modelos saíram com camadas de capacidade cibernética de acesso controlado.\n\nOutro sinal do período: os maiores ganhos de capacidade vieram de escalar ambientes de pós-treinamento, e não de novas arquiteturas de base. Preço também virou alvo móvel, com promoções, cancelamentos e reajustes programados a cada trimestre.\n\n**Fontes:** [The Hacker News](https://thehackernews.com/2026/09/google-anthropic-and-openai-unveil.html) · [Local AI Zone](https://local-ai-zone.github.io/blog/September_2026_AI_Model_Updates.html)"
   },
   {
-    id: "p6",
-    slug: "review-iphone-17-pro-max",
-    layout: "review",
-    category: "Análises",
-    title: "Review: iPhone 17 Pro Max é o mais completo, mas ainda caro",
-    subtitle: "Câmera, bateria e desempenho impressionam — o preço, nem tanto.",
-    author: "Camila Rocha",
-    date: "2026-09-09T14:10:00",
-    readTime: 9,
-    cover: { type: "image", src: "assets/images/cover-6.svg", alt: "iPhone sobre mesa de madeira" },
-    excerpt: "Câmera, bateria e desempenho impressionam — o preço, nem tanto.",
-    tags: ["iPhone", "Review", "Apple"],
-    review: {
-      score: 92,
-      verdict: "Excelente",
-      pros: ["Câmera principal impressionante em pouca luz", "Bateria dura o dia inteiro com folga", "Tela mais brilhante da linha"],
-      cons: ["Preço elevado em relação ao modelo anterior", "Carregador ainda não acompanha a caixa"],
-      specs: { "Tela": "6.9\" OLED ProMotion 120Hz", "Chip": "Apple A20 Pro", "Câmera": "48MP + 48MP + 12MP", "Bateria": "Até 33h de vídeo", "Preço": "A partir de R$ 11.999" }
-    },
-    body: "Depois de duas semanas de uso intenso, o iPhone 17 Pro Max se confirma como o smartphone mais completo da Apple até hoje — mas também o mais caro.\n\n## Design e tela\n\nO acabamento em titânio permanece, agora com um acabamento fosco que resiste melhor a impressões digitais. A tela chega a 3.000 nits de brilho de pico, visível até sob sol forte.\n\n## Câmeras\n\nO novo sensor principal de 48MP entrega fotos noturnas nitidamente superiores às do modelo anterior, com menos ruído e cores mais naturais.\n\n## Bateria e desempenho\n\nCom o chip A20 Pro, o aparelho não esquenta mesmo em jogos pesados, e a autonomia passou dos rivais Android testados no mesmo período."
+    id: "n9",
+    slug: "tesla-cybercab-investigacao-federal",
+    layout: "breaking",
+    category: "Mobilidade",
+    title: "Cybercabs da Tesla entram em operação em Austin e caem sob investigação federal no mesmo dia",
+    subtitle: "A NHTSA abriu uma auditoria sobre cerca de mil veículos sem volante, pedais ou espelhos, horas depois de a Tesla começar a cobrar por corridas.",
+    author: "Redação Órbita",
+    date: "2026-09-04T18:00:00",
+    readTime: 4,
+    breaking: true,
+    cover: { type: "image", src: "assets/images/cybercab.svg", alt: "Ilustração abstrata de veículo autônomo", caption: "A auditoria AQ26002 mira cerca de mil Cybercabs em Austin." },
+    excerpt: "A NHTSA abriu uma auditoria sobre cerca de mil veículos sem volante, pedais ou espelhos, horas depois de a Tesla começar a cobrar por corridas.",
+    tags: ["Tesla", "Cybercab", "Regulação"],
+    liveUpdates: [
+      { time: "03/09", title: "Tesla começa a cobrar por corridas em Austin", text: "A empresa inicia a operação comercial do Cybercab, veículo autônomo projetado sem volante, pedais ou espelhos convencionais." },
+      { time: "03/09", title: "NHTSA abre a auditoria AQ26002", text: "No mesmo dia, o órgão federal de segurança rodoviária dos EUA abre uma consulta de auditoria mirando cerca de mil Cybercabs em circulação em Austin." },
+      { time: "04/09", title: "O que será examinado", text: "A agência vai avaliar o processo e os dados técnicos que a Tesla usou para certificar o veículo — inclusive se a empresa estava correta ao concluir que certas normas federais de segurança não se aplicavam ao Cybercab." },
+      { time: "04/09", title: "Não é um recall", text: "A auditoria não é um recall nem uma conclusão de que os veículos são inseguros. Pela lei americana, as montadoras podem autocertificar a conformidade com as normas federais — foi o que a Tesla fez." }
+    ],
+    body: "A operação comercial do Cybercab, o táxi autônomo da Tesla projetado sem controles manuais, durou menos de um dia até atrair escrutínio federal.\n\n**Fontes:** [TechCrunch](https://techcrunch.com/2026/09/04/feds-launch-investigation-into-teslas-cybercab-deployment/) · [ABC News](https://abcnews.com/Business/feds-launch-probe-teslas-deployment-cybercab-vehicles-brakes/story?id=136202521) · [Motor1](https://www.motor1.com/news/807353/tesla-cybercab-under-nhtsa-probe/)"
   },
   {
-    id: "p7",
-    slug: "entrevista-diretor-design-apple",
-    layout: "interview",
-    category: "Entrevistas",
-    title: "\"Queríamos que a interface parecesse viva\", diz diretor de design da Apple",
-    subtitle: "Em entrevista exclusiva, executivo fala sobre o processo criativo por trás do Liquid Glass.",
-    author: "Pedro Salles",
-    date: "2026-09-08T10:00:00",
-    readTime: 7,
-    cover: { type: "image", src: "assets/images/cover-7.svg", alt: "Executivo em entrevista" },
-    excerpt: "Em entrevista exclusiva, executivo fala sobre o processo criativo por trás do Liquid Glass.",
-    tags: ["Entrevista", "Design", "Apple"],
-    qa: [
-      { q: "Como surgiu a ideia do Liquid Glass?", a: "Vem de anos estudando como a luz se comporta em materiais reais. Queríamos trazer isso para a tela de um jeito que parecesse tangível, não apenas decorativo." },
-      { q: "Qual foi o maior desafio técnico?", a: "Manter 120 quadros por segundo com todos os efeitos de refração ativos, sem sacrificar a bateria. Isso exigiu trabalho conjunto com o time de silício." },
-      { q: "O visual muda entre os apps?", a: "Sim. Cada app pode tingir levemente o vidro com sua cor de marca, mantendo consistência com o sistema." },
-      { q: "O que vem depois do Liquid Glass?", a: "Não posso adiantar detalhes, mas posso dizer que essa é uma fundação, não um destino final." }
-    ]
-  },
-  {
-    id: "p8",
-    slug: "historia-por-tras-do-liquid-glass",
+    id: "n10",
+    slug: "infraestrutura-por-tras-da-corrida-da-ia",
     layout: "longform",
     category: "Reportagem",
-    title: "A jornada de cinco anos para reinventar a interface da Apple",
-    subtitle: "Uma reportagem especial sobre como equipes de design, engenharia e hardware trabalharam juntas para criar o Liquid Glass.",
-    author: "Marina Alves",
-    date: "2026-09-05T07:00:00",
-    readTime: 12,
-    cover: { type: "image", src: "assets/images/cover-8.svg", alt: "Escritório de design moderno" },
-    excerpt: "Uma reportagem especial sobre como equipes de design, engenharia e hardware trabalharam juntas para criar o Liquid Glass.",
-    tags: ["Reportagem", "Design", "Apple"],
-    chapters: [
-      { title: "O início", text: "Tudo começou em 2021, num laboratório interno dedicado a materiais e luz, muito antes de qualquer código de interface ser escrito.\n\nDesigners e engenheiros de óptica passaram meses estudando como diferentes vidros refratam luz em condições reais, catalogando referências para alimentar os primeiros protótipos digitais." },
-      { title: "Os protótipos", text: "As primeiras versões rodavam apenas em Macs potentes, incapazes de manter mais que 20 quadros por segundo.\n\n![Protótipo inicial em tela grande](assets/images/longform-inline.svg)\n\nFoi preciso reescrever partes do compositor gráfico do sistema para viabilizar o efeito em tempo real em um iPhone." },
-      { title: "A integração com o silício", text: "Somente com o desenvolvimento do núcleo gráfico do chip A20 os efeitos puderam rodar de forma eficiente, sem comprometer a bateria.\n\n> \"Foi a primeira vez que hardware e software foram desenhados literalmente na mesma sala, ao mesmo tempo\", relembra um engenheiro que participou do projeto." },
-      { title: "O lançamento", text: "Após cinco anos, o resultado chegou a bilhões de dispositivos de uma só vez, com o iOS 27, redefinindo a identidade visual da Apple para a próxima década." }
-    ]
-  },
-  {
-    id: "p9",
-    slug: "breve-atualizacao-macos-liquid-glass",
-    layout: "brief",
-    category: "Notas Rápidas",
-    title: "macOS também ganhará visual Liquid Glass ainda este ano",
-    subtitle: "Atualização é esperada para a próxima versão do sistema, em outubro.",
+    title: "Energia, regulação e contratos: a infraestrutura invisível da corrida da IA",
+    subtitle: "Enquanto os modelos ganham manchetes, a disputa real de 2026 acontece em usinas nucleares, registros regulatórios e tabelas de preço que mudam a cada trimestre.",
     author: "Redação Órbita",
-    date: "2026-09-14T18:45:00",
-    readTime: 2,
-    cover: { type: "image", src: "assets/images/cover-9.svg", alt: "MacBook sobre mesa" },
-    excerpt: "Atualização é esperada para a próxima versão do sistema, em outubro.",
-    tags: ["macOS", "Nota Rápida"],
-    body: "A Apple confirmou que o macOS também receberá a nova linguagem visual Liquid Glass, unificando a experiência entre iPhone, iPad e Mac. A atualização deve chegar em outubro, junto com o lançamento oficial do iOS 27."
-  },
-  {
-    id: "p10",
-    slug: "nota-rapida-novo-macbook-pro",
-    layout: "brief",
-    category: "Notas Rápidas",
-    title: "Rumor: novo MacBook Pro com tela OLED pode chegar em 2027",
-    subtitle: "Segundo analistas, painel OLED substituiria o mini-LED atual.",
-    author: "Diego Martins",
-    date: "2026-09-10T12:00:00",
-    readTime: 2,
-    cover: { type: "image", src: "assets/images/cover-10.svg", alt: "MacBook aberto" },
-    excerpt: "Segundo analistas, painel OLED substituiria o mini-LED atual.",
-    tags: ["MacBook", "Rumor"],
-    body: "Analistas da cadeia de fornecimento asiática apontam que a Apple estaria testando painéis OLED para os próximos MacBooks Pro, com produção em massa prevista para 2027. A mudança prometeria cores mais vivas e pretos mais profundos em relação à tecnologia mini-LED usada atualmente."
+    date: "2026-09-07T07:00:00",
+    readTime: 9,
+    cover: { type: "image", src: "assets/images/ia-infra.svg", alt: "Ilustração abstrata de servidores", caption: "A competição por energia virou parte central da estratégia das big techs." },
+    excerpt: "Enquanto os modelos ganham manchetes, a disputa real de 2026 acontece em usinas nucleares, registros regulatórios e tabelas de preço.",
+    tags: ["IA", "Infraestrutura", "Regulação"],
+    chapters: [
+      { title: "A conta de energia", text: "Cada geração de modelo exige mais capacidade computacional, e capacidade computacional exige energia previsível e barata — algo que a rede elétrica tradicional nem sempre entrega.\n\nÉ nesse contexto que o Google se movimentou para garantir energia nuclear destinada a data centers de IA na Finlândia. A lógica é simples: contratos de longo prazo com fontes estáveis reduzem o risco de um gargalo físico travar a expansão.\n\n![Ilustração sobre geração de energia](assets/images/energia.svg)" },
+      { title: "O cerco regulatório", text: "O avanço técnico veio acompanhado de uma safra de decisões regulatórias.\n\nA União Europeia passou a classificar o ChatGPT como um mecanismo de busca, o que muda as obrigações às quais o serviço está sujeito. Nos Estados Unidos, o Departamento de Justiça abriu um processo de apuração envolvendo a Nvidia, e a Califórnia criou um registro de auditores de IA — um passo em direção à fiscalização independente de sistemas automatizados.\n\n![Ilustração sobre regulação global](assets/images/regulacao.svg)" },
+      { title: "A adoção institucional", text: "Em paralelo, a adoção dentro de grandes instituições acelerou.\n\nO Pentágono disponibilizou ChatGPT e Grok em um portal já usado por 1,7 milhão de pessoas — um volume que, por si só, transforma essas ferramentas em infraestrutura de trabalho, e não mais em experimento." },
+      { title: "O preço como alvo móvel", text: "Do lado comercial, a tendência é de queda agressiva em nichos específicos. A Microsoft AI lançou o MAI-Transcribe-2, modelo de reconhecimento de fala cobrado a US$ 0,10 por hora de áudio até o fim de 2026 — cerca de 72% abaixo do preço anterior.\n\nO padrão do setor tem sido esse: preço vira alvo móvel a cada trimestre, com promoções, cancelamentos e reajustes programados. Para quem constrói produtos em cima dessas APIs, planejar custo virou exercício de revisão contínua.\n\n---\n\n**Fontes:** [Tech Startups](https://techstartups.com/2026/09/10/top-tech-news-today-september-10-2026-apple-anthropic-ibm-meta-openai-spacex-more/) · [Tech Startups (4/9)](https://techstartups.com/2026/09/04/top-tech-news-today-september-4-2026-amazon-google-microsoft-nvidia-openai-tesla-more/) · [CodeMicros](https://www.codemicros.com/2026/09/biggest-ai-news-september-2026.html)" }
+    ]
   }
 ];
