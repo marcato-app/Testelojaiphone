@@ -33,9 +33,6 @@ const Store = {
   saveAll(posts) {
     localStorage.setItem(ORBITA_POSTS_KEY, JSON.stringify(posts));
   },
-  ensureInitialized() {
-    if (!this._readRaw()) this.saveAll(window.SEED_POSTS || []);
-  },
   getBySlug(slug) {
     return this.getAll().find(p => p.slug === slug) || null;
   },
@@ -95,5 +92,4 @@ const Theme = {
   }
 };
 
-Store.ensureInitialized();
 Theme.init();

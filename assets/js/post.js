@@ -122,7 +122,6 @@ const LAYOUT_RENDERERS = {
       ${post.body ? `<div class="prose" style="margin-top:30px">${parseBody(post.body)}</div>` : ""}
     </div>
     <div id="lightbox-root"></div>
-    <script>window.__GALLERY__ = ${JSON.stringify(imgs)};</script>
     ${relatedSection(post)}`;
   },
 
@@ -260,6 +259,7 @@ function renderPostPage() {
   const meta = document.querySelector('meta[name="description"]');
   if (meta) meta.setAttribute("content", post.excerpt || "");
   const renderer = LAYOUT_RENDERERS[post.layout] || LAYOUT_RENDERERS.standard;
+  window.__GALLERY__ = post.gallery || [];
   root.innerHTML = renderer(post);
   setupRevealAnimations();
 }
