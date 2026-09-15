@@ -11,20 +11,36 @@
 
 window.SEED_POSTS = [
   {
+    id: "p12",
+    slug: "iphone-duo-primeiro-iphone-dobravel-da-apple",
+    layout: "standard",
+    category: "Apple",
+    title: "Apple anuncia o iPhone Duo, seu primeiro iPhone dobrável",
+    subtitle: "Chamado pela Apple de \"a maior mudança no iPhone desde 2007\", o aparelho abre como um livro, roda o mesmo chip A20 Pro dos modelos Pro e chega a partir de US$ 1.999.",
+    author: "Redação Órbita",
+    date: "2026-09-15T11:00:00",
+    readTime: 6,
+    featured: true,
+    cover: { type: "image", src: "assets/images/cover-12.svg", alt: "Ilustração de smartphone dobrável", caption: "O iPhone Duo foi apresentado por John Ternus, CEO da Apple." },
+    excerpt: "O aparelho abre como um livro, roda o mesmo chip A20 Pro dos modelos Pro e chega a partir de US$ 1.999.",
+    tags: ["iPhone Duo", "Apple", "Dobrável"],
+    body: "Depois de anos de especulação, a Apple confirmou nesta semana seu primeiro iPhone dobrável: o iPhone Duo. O anúncio foi feito por John Ternus, que assumiu recentemente o cargo de CEO da Apple, durante o evento de 9 de setembro de 2026 em Cupertino — o mesmo em que a empresa revelou o iPhone 18 Pro e o iPhone 18 Pro Max.\n\n## Um iPhone que abre como um livro\n\nO Duo tem uma tela externa de 5,4 polegadas e, ao ser aberto, revela uma tela interna de 7,6 polegadas — mantendo a mesma proporção em ambos os painéis para que a transição entre os dois modos pareça contínua. A estrutura é de titânio usinado e polido, com Ceramic Shield na parte de trás e Ceramic Shield 2 na tela frontal, além de certificação IP68 contra água e poeira. A câmera frontal fica escondida sob a própria tela.\n\n![Ilustração do formato dobrável do iPhone Duo](assets/images/duo-inline.svg)\n\n## Mesmo chip dos modelos Pro\n\nO aparelho roda o chip A20 Pro, o mesmo dos novos iPhone 18 Pro e Pro Max, fabricado em processo de 2 nanômetros e com até 35% mais desempenho sustentado — importante para lidar com o consumo extra de duas telas.\n\n## Software pensado para a tela dobrável\n\nO iPhone Duo roda o iOS 27 com uma camada de recursos exclusiva para o formato dobrável, incluindo o Split View, que permite usar dois aplicativos lado a lado na tela grande, e o pareamento de apps, para abrir rapidamente combinações de aplicativos usadas com frequência.\n\n## Cores, preço e data\n\nO iPhone Duo chega em duas cores, Star White e Night Sky, com preços a partir de US$ 1.999 para a versão de 256GB, chegando a US$ 3.199 na configuração de 2TB. As pré-vendas começam em 16 de outubro, com chegada às lojas em 23 de outubro.\n\n---\n\n> \"É a maior mudança no iPhone desde que ele foi criado, em 2007\", disse a Apple durante a apresentação.\n\nA Apple entra assim em um mercado até então dominado pela Samsung, que vende telas dobráveis há anos. Resta saber se o restante da indústria vai seguir o mesmo caminho."
+  },
+  {
     id: "p11",
     slug: "iphone-18-pro-e-pro-max-o-que-se-sabe-ate-agora",
     layout: "standard",
     category: "Apple",
-    title: "iPhone 18 Pro e Pro Max: o que se sabe até agora",
-    subtitle: "Rumores da cadeia de fornecedores apontam novo design de câmera, chip A21 e um recurso que a Apple vinha guardando há anos. Veja o que já vazou sobre a próxima geração.",
+    title: "Apple lança iPhone 18 Pro e iPhone 18 Pro Max com câmera de abertura variável",
+    subtitle: "Os novos modelos chegam com o chip A20 Pro em 2nm, bateria recorde e uma Dynamic Island menor. Veja tudo o que foi anunciado.",
     author: "Redação Órbita",
-    date: "2026-09-15T12:00:00",
+    date: "2026-09-15T10:00:00",
     readTime: 6,
-    featured: true,
-    cover: { type: "image", src: "assets/images/cover-11.svg", alt: "Ilustração de smartphone em fundo azul", caption: "Renderizações não-oficiais circulam desde o início do mês." },
-    excerpt: "Rumores da cadeia de fornecedores apontam novo design de câmera, chip A21 e um recurso que a Apple vinha guardando há anos.",
-    tags: ["iPhone", "Apple", "Rumor"],
-    body: "Ainda faltam meses para um eventual anúncio oficial, mas os rumores sobre o iPhone 18 Pro e o iPhone 18 Pro Max já começaram a se acumular entre fornecedores asiáticos e analistas de mercado. Nada foi confirmado pela Apple — como sempre nesta fase, vale tratar as informações abaixo como especulação bem fundamentada, não como fato.\n\n## Design e câmera\n\nA principal mudança esperada é no módulo de câmeras: pela primeira vez, a lente periscópio de zoom óptico estendido — hoje exclusiva do Pro Max — chegaria também ao Pro de tela menor, equalizando os dois modelos nesse quesito. A barra de câmeras também teria um desenho ligeiramente mais fino, aproveitando avanços no empilhamento dos sensores.\n\n![Ilustração não-oficial do possível novo módulo de câmera](assets/images/iphone18-leak.svg)\n\n## Chip A21 e desempenho\n\nDepois do salto do A20 em eficiência, o próximo passo seria o chip A21, com um núcleo neural ainda mais dedicado a tarefas de IA generativa rodando localmente no aparelho — sem depender da nuvem. Analistas apontam ganhos de desempenho mais modestos do que a geração anterior, com o foco principal em bateria.\n\n## Tela e Liquid Glass\n\nCom a interface Liquid Glass já rodando em todo o catálogo atual, a expectativa é que o iPhone 18 traga uma taxa de brilho de pico ainda maior, o que ajudaria os efeitos de vidro e refração da interface a parecerem mais realistas sob luz solar direta.\n\n## Preço e data\n\nNenhuma data oficial foi indicada, mas o padrão histórico da Apple aponta para um anúncio em setembro de 2027, com preços que devem partir de patamar semelhante ao do iPhone 17 Pro Max, hoje vendido a partir de R$ 11.999.\n\n---\n\nA Órbita vai acompanhar de perto a evolução desses rumores e atualizar esta matéria assim que novas informações surgirem."
+    featured: false,
+    cover: { type: "image", src: "assets/images/cover-11.svg", alt: "Ilustração de smartphone em fundo azul", caption: "iPhone 18 Pro e Pro Max foram anunciados em 9 de setembro de 2026." },
+    excerpt: "Os novos modelos chegam com o chip A20 Pro em 2nm, bateria recorde e uma Dynamic Island menor.",
+    tags: ["iPhone", "Apple", "A20 Pro"],
+    body: "A Apple apresentou oficialmente o iPhone 18 Pro e o iPhone 18 Pro Max no evento realizado em 9 de setembro de 2026, em Cupertino. As pré-vendas começaram no dia 12, e os aparelhos chegam às lojas em mais de 65 países a partir de 18 de setembro.\n\n## Câmera com abertura variável\n\nA principal novidade fica por conta da câmera principal Fusion de 48MP, que ganhou pela primeira vez um sistema mecânico de abertura variável — com seis lâminas físicas que se ajustam entre quatro posições (ƒ/1.48, ƒ/1.8, ƒ/2.8 e ƒ/4.0), recurso até então visto apenas em câmeras profissionais.\n\n![Ilustração não-oficial do novo módulo de câmera](assets/images/iphone18-leak.svg)\n\n## Chip A20 Pro\n\nOs dois modelos rodam o novo chip A20 Pro, fabricado em processo de 2 nanômetros, com ganhos de 18% em desempenho de CPU e 30% em eficiência energética em relação à geração anterior. O iPhone 18 Pro também estreia o modem C2, mais rápido e 15% mais econômico que o C1X.\n\n## Bateria e tela\n\nA autonomia é o maior salto da linha: o Pro Max chega a 45 horas de reprodução de vídeo, contra 39 horas do modelo anterior. O carregamento também ficou mais rápido, atingindo 50% da carga em cerca de 15 minutos. Ambos os modelos mantêm a tela OLED Super Retina XDR com ProMotion, agora com uma Dynamic Island menor — que passa a suportar até três Atividades ao Vivo simultâneas.\n\n## Cores, armazenamento e preço\n\nOs aparelhos chegam em quatro cores — Preto, Glacier, Bordô e Prata — e, pela primeira vez, a opção de 2TB de armazenamento também está disponível no iPhone 18 Pro, não só no Pro Max. Nos Estados Unidos, os preços partem de US$ 1.199 no Pro e US$ 1.299 no Pro Max.\n\n---\n\nO lançamento aconteceu no mesmo evento em que a Apple revelou o [iPhone Duo, seu primeiro iPhone dobrável](post.html?slug=iphone-duo-primeiro-iphone-dobravel-da-apple)."
   },
   {
     id: "p1",
@@ -36,7 +52,7 @@ window.SEED_POSTS = [
     author: "Marina Alves",
     date: "2026-09-14T09:30:00",
     readTime: 6,
-    featured: true,
+    featured: false,
     cover: { type: "image", src: "assets/images/cover-1.svg", alt: "Chip de silício em close-up", caption: "O A20 é fabricado em processo de 2nm." },
     excerpt: "Processador chega junto do iOS 27 e da nova linguagem visual Liquid Glass, prometendo o maior salto de desempenho em três gerações.",
     tags: ["Apple", "Chip", "iPhone"],
