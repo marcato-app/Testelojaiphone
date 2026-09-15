@@ -11,6 +11,22 @@
 
 window.SEED_POSTS = [
   {
+    id: "p11",
+    slug: "iphone-18-pro-e-pro-max-o-que-se-sabe-ate-agora",
+    layout: "standard",
+    category: "Apple",
+    title: "iPhone 18 Pro e Pro Max: o que se sabe até agora",
+    subtitle: "Rumores da cadeia de fornecedores apontam novo design de câmera, chip A21 e um recurso que a Apple vinha guardando há anos. Veja o que já vazou sobre a próxima geração.",
+    author: "Redação Órbita",
+    date: "2026-09-15T12:00:00",
+    readTime: 6,
+    featured: true,
+    cover: { type: "image", src: "assets/images/cover-11.svg", alt: "Ilustração de smartphone em fundo azul", caption: "Renderizações não-oficiais circulam desde o início do mês." },
+    excerpt: "Rumores da cadeia de fornecedores apontam novo design de câmera, chip A21 e um recurso que a Apple vinha guardando há anos.",
+    tags: ["iPhone", "Apple", "Rumor"],
+    body: "Ainda faltam meses para um eventual anúncio oficial, mas os rumores sobre o iPhone 18 Pro e o iPhone 18 Pro Max já começaram a se acumular entre fornecedores asiáticos e analistas de mercado. Nada foi confirmado pela Apple — como sempre nesta fase, vale tratar as informações abaixo como especulação bem fundamentada, não como fato.\n\n## Design e câmera\n\nA principal mudança esperada é no módulo de câmeras: pela primeira vez, a lente periscópio de zoom óptico estendido — hoje exclusiva do Pro Max — chegaria também ao Pro de tela menor, equalizando os dois modelos nesse quesito. A barra de câmeras também teria um desenho ligeiramente mais fino, aproveitando avanços no empilhamento dos sensores.\n\n![Ilustração não-oficial do possível novo módulo de câmera](assets/images/iphone18-leak.svg)\n\n## Chip A21 e desempenho\n\nDepois do salto do A20 em eficiência, o próximo passo seria o chip A21, com um núcleo neural ainda mais dedicado a tarefas de IA generativa rodando localmente no aparelho — sem depender da nuvem. Analistas apontam ganhos de desempenho mais modestos do que a geração anterior, com o foco principal em bateria.\n\n## Tela e Liquid Glass\n\nCom a interface Liquid Glass já rodando em todo o catálogo atual, a expectativa é que o iPhone 18 traga uma taxa de brilho de pico ainda maior, o que ajudaria os efeitos de vidro e refração da interface a parecerem mais realistas sob luz solar direta.\n\n## Preço e data\n\nNenhuma data oficial foi indicada, mas o padrão histórico da Apple aponta para um anúncio em setembro de 2027, com preços que devem partir de patamar semelhante ao do iPhone 17 Pro Max, hoje vendido a partir de R$ 11.999.\n\n---\n\nA Órbita vai acompanhar de perto a evolução desses rumores e atualizar esta matéria assim que novas informações surgirem."
+  },
+  {
     id: "p1",
     slug: "novo-chip-a20-bateria-liquid-glass",
     layout: "standard",
