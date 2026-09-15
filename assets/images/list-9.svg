@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900" width="1200" height="900">
+  <defs>
+    <filter id="b1" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="81.0"/></filter>
+    <linearGradient id="fade" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#000" stop-opacity="0.35"/><stop offset="0.5" stop-color="#000" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" fill="#04262b"/>
+  <circle cx="668.4457778084229" cy="21.024885418834995" r="485.6776216278572" fill="#5ac8fa" opacity="0.6357989201501194" filter="url(#b1)"/><circle cx="770.8285302574154" cy="164.28256683161365" r="323.6661479200552" fill="#30d158" opacity="0.7638252471933624" filter="url(#b1)"/><circle cx="1114.4348897324155" cy="287.84727643961844" r="279.75704212726725" fill="#5ac8fa" opacity="0.5704540328904607" filter="url(#b1)"/><circle cx="589.5926252994246" cy="288.64354989480614" r="232.57837741958096" fill="#30d158" opacity="0.5903802750129334" filter="url(#b1)"/><circle cx="679.2042324788541" cy="584.8745673378264" r="401.7254226458207" fill="#5ac8fa" opacity="0.7737244545851241" filter="url(#b1)"/>
+  
+  <rect width="1200" height="900" fill="url(#fade)"/>
+</svg>
