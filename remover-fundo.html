@@ -134,6 +134,10 @@
     <div class="tool-error" id="tool-error">
       <strong>Não foi possível remover o fundo.</strong>
       <span id="tool-error-msg">Verifique sua conexão com a internet e tente novamente.</span>
+      <details style="margin-top:8px;">
+        <summary style="cursor:pointer;font-size:12.5px;color:var(--text-tertiary);">Detalhes técnicos</summary>
+        <code id="tool-error-detail" style="display:block;margin-top:6px;font-size:12px;white-space:pre-wrap;word-break:break-word;color:var(--text-tertiary);"></code>
+      </details>
     </div>
 
     <div class="result-wrap" id="result-wrap">
@@ -297,12 +301,14 @@
     } catch (err) {
       console.error(err);
       toolProgress.classList.remove("show");
-      showError("Verifique sua conexão com a internet e tente novamente. Se o problema persistir, tente a opção \"Rápido\" ou use outra foto.");
+      const detail = (err && (err.stack || err.message)) ? (err.stack || err.message) : String(err);
+      showError("Verifique sua conexão com a internet e tente novamente. Se o problema persistir, tente a opção \"Rápido\" ou use outra foto.", detail);
     }
   }
 
-  function showError(msg) {
+  function showError(msg, detail) {
     toolErrorMsg.textContent = msg;
+    document.getElementById("tool-error-detail").textContent = detail || "";
     toolError.classList.add("show");
   }
 </script>
