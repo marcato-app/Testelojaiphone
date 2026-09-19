@@ -201,7 +201,7 @@
   function getRemoveBackground() {
     if (!imglyRemoveBackground) {
       imglyRemoveBackground = import("https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/dist/index.mjs")
-        .then(mod => mod.default)
+        .then(mod => mod.removeBackground)
         .catch(err => { imglyRemoveBackground = null; throw err; });
     }
     return imglyRemoveBackground;
