@@ -256,7 +256,7 @@ function renderFooter() {
           ${Store.categories().slice(0, 4).map(c => `<a href="categoria.html?c=${encodeURIComponent(c)}">${escapeHtml(c)}</a>`).join("")}
         </div>
         <div><h4>Institucional</h4>
-          <a href="admin/index.html">Área do editor</a><a href="categoria.html">Todas as matérias</a>
+          <a href="admin/index.html">Área do editor</a><a href="categoria.html">Todas as matérias</a><a href="remover-fundo.html">Remover fundo de foto</a>
         </div>
         <div><h4>Siga</h4>
           <a href="#">X / Twitter</a><a href="#">Instagram</a><a href="#">YouTube</a>

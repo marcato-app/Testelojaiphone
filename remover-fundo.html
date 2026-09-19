@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Removedor de Fundo de Foto Grátis — PNG em Qualidade Máxima | Órbita Tech</title>
+<meta name="description" content="Remova o fundo de qualquer foto direto no navegador e baixe em PNG com qualidade máxima. Grátis, rápido e privado — sua imagem nunca sai do seu aparelho.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 24 24%22><circle cx=%2212%22 cy=%2212%22 r=%229%22 fill=%22%230071e3%22/></svg>">
+<link rel="stylesheet" href="assets/css/main.css">
+<style>
+  .tool-hero { padding: 44px 0 8px; text-align: center; }
+  .tool-hero h1 { font-size: clamp(28px, 4.4vw, 44px); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin: 14px 0 12px; }
+  .tool-hero p { font-size: 16.5px; color: var(--text-secondary); max-width: 560px; margin: 0 auto; line-height: 1.6; }
+  .tool-badges { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; margin-top: 18px; }
+
+  .tool-card { padding: 28px; margin: 32px 0 20px; }
+
+  .dropzone {
+    border: 2px dashed var(--border-strong); border-radius: var(--radius-md);
+    padding: 46px 24px; text-align: center; cursor: pointer;
+    transition: background .2s var(--ease), border-color .2s var(--ease);
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+  }
+  .dropzone:hover, .dropzone.drag { background: var(--glass-bg); border-color: var(--accent); }
+  .dropzone .dz-icon {
+    width: 58px; height: 58px; border-radius: 50%; display: flex; align-items: center; justify-content: center;
+    background: color-mix(in srgb, var(--accent) 14%, transparent); color: var(--accent); flex-shrink: 0;
+  }
+  .dropzone .dz-title { font-size: 16.5px; font-weight: 700; }
+  .dropzone .dz-sub { font-size: 13px; color: var(--text-tertiary); }
+
+  .quality-row { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin: 22px 0 4px; }
+  .quality-opt {
+    display: flex; flex-direction: column; align-items: center; gap: 2px; padding: 10px 18px;
+    border-radius: var(--radius-md); border: 1.5px solid var(--border); background: var(--bg-elevated);
+    cursor: pointer; transition: all .2s var(--ease); min-width: 120px;
+  }
+  .quality-opt:hover { border-color: var(--border-strong); }
+  .quality-opt.active { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 10%, transparent); }
+  .quality-opt .q-name { font-size: 13.5px; font-weight: 700; }
+  .quality-opt .q-desc { font-size: 11.5px; color: var(--text-tertiary); }
+  .quality-hint { text-align: center; font-size: 12.5px; color: var(--text-tertiary); margin-top: 10px; }
+
+  .tool-progress { display: none; flex-direction: column; gap: 10px; align-items: center; padding: 30px 20px; }
+  .tool-progress.show { display: flex; }
+  .progress-track { width: 100%; max-width: 360px; height: 8px; border-radius: 999px; background: var(--bg-soft); overflow: hidden; }
+  .progress-fill { height: 100%; width: 6%; border-radius: 999px; background: linear-gradient(90deg, var(--accent), var(--accent-purple)); transition: width .25s var(--ease); }
+  .progress-fill.indeterminate { width: 40% !important; animation: progress-slide 1.1s ease-in-out infinite; }
+  @keyframes progress-slide { 0% { margin-left: -40%; } 100% { margin-left: 100%; } }
+  .progress-label { font-size: 13.5px; color: var(--text-secondary); font-weight: 600; }
+
+  .tool-error { display: none; padding: 16px 20px; border-radius: var(--radius-md); background: color-mix(in srgb, var(--accent-2) 12%, transparent); color: var(--text); font-size: 14px; margin-top: 18px; }
+  .tool-error.show { display: block; }
+  .tool-error strong { display: block; margin-bottom: 4px; }
+
+  .result-wrap { display: none; margin-top: 26px; }
+  .result-wrap.show { display: block; }
+  .compare-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+  @media (max-width: 620px) { .compare-grid { grid-template-columns: 1fr; } }
+  .compare-box { border-radius: var(--radius-md); overflow: hidden; border: 1px solid var(--border); background: var(--bg-soft); }
+  .compare-box .cb-label { font-size: 11.5px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--text-tertiary); padding: 10px 14px 0; }
+  .compare-box .cb-media { aspect-ratio: 1/1; display: flex; align-items: center; justify-content: center; padding: 10px; }
+  .compare-box img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .checker {
+    background-image: linear-gradient(45deg, var(--border) 25%, transparent 25%), linear-gradient(-45deg, var(--border) 25%, transparent 25%), linear-gradient(45deg, transparent 75%, var(--border) 75%), linear-gradient(-45deg, transparent 75%, var(--border) 75%);
+    background-size: 20px 20px; background-position: 0 0, 0 10px, 10px -10px, -10px 0;
+  }
+  .result-actions { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 24px; }
+
+  .tool-steps { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin: 40px 0; }
+  @media (max-width: 780px) { .tool-steps { grid-template-columns: 1fr; } }
+  .tool-step { padding: 22px; }
+  .tool-step .step-num { width: 30px; height: 30px; border-radius: 50%; background: var(--accent); color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 13.5px; margin-bottom: 12px; }
+  .tool-step h3 { font-size: 15.5px; font-weight: 700; margin-bottom: 6px; }
+  .tool-step p { font-size: 13.5px; color: var(--text-secondary); line-height: 1.55; }
+
+  #tool-unsupported { display: none; padding: 20px; text-align: center; color: var(--text-secondary); }
+</style>
+</head>
+<body>
+
+<div id="nav-root"></div>
+
+<main class="container-narrow" style="padding-bottom:60px;">
+
+  <div class="tool-hero">
+    <span class="kicker">Ferramenta grátis</span>
+    <h1>Remova o fundo de fotos e baixe em PNG</h1>
+    <p>Envie uma imagem, deixe a IA recortar o fundo automaticamente e baixe o resultado em PNG transparente com qualidade máxima — tudo processado no seu próprio navegador.</p>
+    <div class="tool-badges">
+      <span class="tag-pill">🔒 Sua foto não sai do dispositivo</span>
+      <span class="tag-pill">⚡ Grátis e sem limite</span>
+      <span class="tag-pill">🖼️ PNG com transparência</span>
+    </div>
+  </div>
+
+  <section id="tool-unsupported" class="glass tool-card">
+    <p><strong>Seu navegador não é compatível com esta ferramenta.</strong><br>Atualize para uma versão recente do Chrome, Safari, Edge ou Firefox e tente novamente.</p>
+  </section>
+
+  <section id="tool-app" class="glass tool-card">
+    <input type="file" id="file-input" accept="image/*" hidden>
+
+    <div class="dropzone" id="dropzone">
+      <div class="dz-icon">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><path d="M12 16V4M12 4L7 9M12 4L17 9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <div class="dz-title">Arraste uma foto aqui ou toque para escolher</div>
+      <div class="dz-sub">JPG, PNG ou WEBP · funciona melhor com imagens de até 15 MB</div>
+      <button type="button" class="btn btn-primary" id="pick-btn">Escolher foto</button>
+    </div>
+
+    <div class="quality-row" id="quality-row">
+      <div class="quality-opt" data-model="isnet_quint8">
+        <span class="q-name">Rápido</span>
+        <span class="q-desc">Modelo leve</span>
+      </div>
+      <div class="quality-opt" data-model="isnet_fp16">
+        <span class="q-name">Equilibrado</span>
+        <span class="q-desc">Bom custo-benefício</span>
+      </div>
+      <div class="quality-opt active" data-model="isnet">
+        <span class="q-name">Qualidade máxima</span>
+        <span class="q-desc">Recorte mais preciso</span>
+      </div>
+    </div>
+    <div class="quality-hint">Na opção de qualidade máxima, o modelo de IA é baixado uma única vez pelo navegador (pode levar alguns segundos na primeira utilização).</div>
+
+    <div class="tool-progress" id="tool-progress">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-label" id="progress-label">Preparando...</div>
+    </div>
+
+    <div class="tool-error" id="tool-error">
+      <strong>Não foi possível remover o fundo.</strong>
+      <span id="tool-error-msg">Verifique sua conexão com a internet e tente novamente.</span>
+    </div>
+
+    <div class="result-wrap" id="result-wrap">
+      <div class="compare-grid">
+        <div class="compare-box">
+          <div class="cb-label">Original</div>
+          <div class="cb-media"><img id="img-original" alt="Foto original"></div>
+        </div>
+        <div class="compare-box checker">
+          <div class="cb-label">Sem fundo</div>
+          <div class="cb-media"><img id="img-result" alt="Foto sem fundo, em PNG transparente"></div>
+        </div>
+      </div>
+      <div class="result-actions">
+        <a class="btn btn-primary" id="download-btn" download="sem-fundo.png">Baixar PNG</a>
+        <button type="button" class="btn btn-glass" id="reset-btn">Processar outra foto</button>
+      </div>
+    </div>
+  </section>
+
+  <div class="tool-steps">
+    <div class="tool-step glass">
+      <div class="step-num">1</div>
+      <h3>Envie a foto</h3>
+      <p>Arraste um arquivo ou escolha na galeria do seu computador ou celular.</p>
+    </div>
+    <div class="tool-step glass">
+      <div class="step-num">2</div>
+      <h3>A IA recorta o fundo</h3>
+      <p>Um modelo de segmentação roda direto no navegador, sem enviar a imagem para nenhum servidor.</p>
+    </div>
+    <div class="tool-step glass">
+      <div class="step-num">3</div>
+      <h3>Baixe em PNG</h3>
+      <p>O resultado sai em PNG com canal de transparência, na resolução original da foto.</p>
+    </div>
+  </div>
+
+</main>
+
+<div id="footer-root"></div>
+
+<script src="assets/js/seed-data.js"></script>
+<script src="assets/js/store.js"></script>
+<script src="assets/js/render.js"></script>
+<script>
+  renderNav();
+  renderFooter();
+</script>
+
+<script type="importmap">
+{
+  "imports": {
+    "onnxruntime-web": "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/ort.bundle.min.mjs",
+    "onnxruntime-web/webgpu": "https://cdn.jsdelivr.net/npm/onnxruntime-web@1.21.0/dist/ort.webgpu.bundle.min.mjs"
+  }
+}
+</script>
+<script type="module">
+  import imglyRemoveBackground from "https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/dist/index.mjs";
+
+  const fileInput = document.getElementById("file-input");
+  const dropzone = document.getElementById("dropzone");
+  const qualityRow = document.getElementById("quality-row");
+  const toolProgress = document.getElementById("tool-progress");
+  const progressFill = document.getElementById("progress-fill");
+  const progressLabel = document.getElementById("progress-label");
+  const toolError = document.getElementById("tool-error");
+  const toolErrorMsg = document.getElementById("tool-error-msg");
+  const resultWrap = document.getElementById("result-wrap");
+  const imgOriginal = document.getElementById("img-original");
+  const imgResult = document.getElementById("img-result");
+  const downloadBtn = document.getElementById("download-btn");
+  const resetBtn = document.getElementById("reset-btn");
+
+  let selectedModel = "isnet";
+  let currentOriginalUrl = null;
+  let currentResultUrl = null;
+
+  qualityRow.addEventListener("click", (e) => {
+    const opt = e.target.closest(".quality-opt");
+    if (!opt) return;
+    qualityRow.querySelectorAll(".quality-opt").forEach(el => el.classList.remove("active"));
+    opt.classList.add("active");
+    selectedModel = opt.dataset.model;
+  });
+
+  dropzone.addEventListener("click", () => fileInput.click());
+  fileInput.addEventListener("change", () => {
+    if (fileInput.files && fileInput.files[0]) processFile(fileInput.files[0]);
+  });
+
+  ["dragenter", "dragover"].forEach(evt => dropzone.addEventListener(evt, (e) => {
+    e.preventDefault(); dropzone.classList.add("drag");
+  }));
+  ["dragleave", "drop"].forEach(evt => dropzone.addEventListener(evt, (e) => {
+    e.preventDefault(); dropzone.classList.remove("drag");
+  }));
+  dropzone.addEventListener("drop", (e) => {
+    const file = e.dataTransfer.files && e.dataTransfer.files[0];
+    if (file) processFile(file);
+  });
+
+  resetBtn.addEventListener("click", resetTool);
+
+  function resetTool() {
+    fileInput.value = "";
+    resultWrap.classList.remove("show");
+    toolError.classList.remove("show");
+    toolProgress.classList.remove("show");
+    if (currentOriginalUrl) { URL.revokeObjectURL(currentOriginalUrl); currentOriginalUrl = null; }
+    if (currentResultUrl) { URL.revokeObjectURL(currentResultUrl); currentResultUrl = null; }
+  }
+
+  async function processFile(file) {
+    if (!file.type.startsWith("image/")) {
+      showError("Escolha um arquivo de imagem (JPG, PNG ou WEBP).");
+      return;
+    }
+
+    resetTool();
+    toolProgress.classList.add("show");
+    progressFill.classList.add("indeterminate");
+    progressLabel.textContent = "Preparando imagem...";
+
+    currentOriginalUrl = URL.createObjectURL(file);
+    imgOriginal.src = currentOriginalUrl;
+
+    const baseName = (file.name || "foto").replace(/\.[^.]+$/, "");
+    downloadBtn.setAttribute("download", `${baseName}-sem-fundo.png`);
+
+    try {
+      const blob = await imglyRemoveBackground(file, {
+        model: selectedModel,
+        output: { format: "image/png" },
+        progress: (key, current, total) => {
+          if (!total) return;
+          const pct = Math.min(100, Math.round((current / total) * 100));
+          progressFill.classList.remove("indeterminate");
+          progressFill.style.width = pct + "%";
+          progressLabel.textContent = `Baixando modelo de IA e processando... ${pct}%`;
+        }
+      });
+
+      currentResultUrl = URL.createObjectURL(blob);
+      imgResult.src = currentResultUrl;
+      downloadBtn.href = currentResultUrl;
+
+      toolProgress.classList.remove("show");
+      resultWrap.classList.add("show");
+    } catch (err) {
+      console.error(err);
+      toolProgress.classList.remove("show");
+      showError("Verifique sua conexão com a internet e tente novamente. Se o problema persistir, tente a opção \"Rápido\" ou use outra foto.");
+    }
+  }
+
+  function showError(msg) {
+    toolErrorMsg.textContent = msg;
+    toolError.classList.add("show");
+  }
+</script>
+<script nomodule>
+  document.getElementById("tool-app").style.display = "none";
+  document.getElementById("tool-unsupported").style.display = "block";
+</script>
+</body>
+</html>
