@@ -193,7 +193,16 @@
 }
 </script>
 <script type="module">
-  import imglyRemoveBackground from "https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/dist/index.mjs";
+  let imglyRemoveBackground = null;
+  function getRemoveBackground() {
+    if (!imglyRemoveBackground) {
+      imglyRemoveBackground = import("https://cdn.jsdelivr.net/npm/@imgly/background-removal@1.7.0/dist/index.mjs")
+        .then(mod => mod.default)
+        .catch(err => { imglyRemoveBackground = null; throw err; });
+    }
+    return imglyRemoveBackground;
+  }
+  getRemoveBackground().catch(() => {});
 
   const fileInput = document.getElementById("file-input");
   const dropzone = document.getElementById("dropzone");
@@ -266,7 +275,8 @@
     downloadBtn.setAttribute("download", `${baseName}-sem-fundo.png`);
 
     try {
-      const blob = await imglyRemoveBackground(file, {
+      const removeBackground = await getRemoveBackground();
+      const blob = await removeBackground(file, {
         model: selectedModel,
         output: { format: "image/png" },
         progress: (key, current, total) => {
